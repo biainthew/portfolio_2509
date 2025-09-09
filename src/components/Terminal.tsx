@@ -34,7 +34,7 @@ ${t('terminal.execute')}
     return (
         <section
             id="terminal"
-            className={`py-16 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            className={`pt-8 pb-12 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
         >
             <div className="max-w-3xl mx-auto">
                 <div className="bg-gray-900 rounded-md overflow-hidden">
@@ -48,7 +48,7 @@ ${t('terminal.execute')}
                             terminal@cyberfolio:~
                         </div>
                     </div>
-                    <div className="p-4 font-mono text-sm text-electric-blue leading-relaxed">
+                    <div className="p-4 font-mono text-sm text-electric-blue leading-relaxed whitespace-pre-line">
                         {text}
                         <span className={`inline-block w-2 h-4 bg-hot-pink ml-1 ${cursorVisible ? 'opacity-100' : 'opacity-0'}`}></span>
                     </div>

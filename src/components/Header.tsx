@@ -11,12 +11,16 @@ export const Header = () => {
             href: '#home',
         },
         {
-            label: t('nav.projects'),
-            href: '#projects',
+            label: t('nav.profile'),
+            href: '#profile',
         },
         {
             label: t('nav.terminal'),
             href: '#terminal',
+        },
+        {
+            label: t('nav.projects'),
+            href: '#projects',
         },
         {
             label: t('nav.contact'),
@@ -25,7 +29,7 @@ export const Header = () => {
     ]
     return (
         <header
-            className={`py-6 px-4 border-b border-electric-blue/30 backdrop-blur-sm ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            className={`fixed top-0 left-0 right-0 z-50 py-6 px-4 border-b border-electric-blue/30 backdrop-blur-sm bg-black/80 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
         >
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center">
@@ -47,7 +51,7 @@ export const Header = () => {
                                 <li key={index}>
                                     <a
                                         href={item.href}
-                                        className={`font-mono text-sm relative ${hoverIndex === index ? 'text-hot-pink' : 'text-gray-400 hover:text-electric-blue'} transition-colors duration-300`}
+                                        className={`text-sm relative ${hoverIndex === index ? 'text-hot-pink' : 'text-gray-400 hover:text-electric-blue'} transition-colors duration-300`}
                                         onMouseEnter={() => setHoverIndex(index)}
                                         onMouseLeave={() => setHoverIndex(null)}
                                     >

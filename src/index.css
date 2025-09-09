@@ -1,20 +1,66 @@
-/* Font imports - must come before other CSS */
-@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-@import url('https://cdn.jsdelivr.net/npm/@fontsource/styrene-a/index.css');
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+/* fonts */
+@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); /* 포인트 한글 - Galmuri14 */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap'); /* 코드 - Share Tech Mono */
 
-/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED */
+/* 포인트 영어 - PfStardust */
+@font-face {
+    font-family: 'PfStardust';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/PFStardust.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+/* 영어 - Styrene A */
+@font-face {
+  font-family: 'Styrene A';
+  src: url('./assets/styrene/StyreneA-Regular-Trial-BF63f6cbd970ee9.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Styrene A';
+  src: url('./assets/styrene/StyreneA-Medium-Trial-BF63f6cbdb24b6d.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Styrene A';
+  src: url('./assets/styrene/StyreneA-Bold-Trial-BF63f6cbda1877f.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* 한글 - Orbit */
+@font-face {
+    font-family: 'Orbit';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/Orbit-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-display: swap;
+}
+
+/* 코드 - D2Coding */
+@font-face {
+    font-family: 'D2Coding';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_three@1.0/D2Coding.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+/* tailwind css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+
 @layer base {
     :root {
         --color-electric-blue: 0, 230, 255;
         --color-hot-pink: 255, 0, 128;
     }
     body {
-        @apply bg-black text-gray-200 font-sans;
+        @apply bg-black text-gray-200 font-sans pt-24;
         text-rendering: optimizeLegibility;
     }
     ::selection {
@@ -22,15 +68,29 @@
     }
     /* Language-specific font classes */
     .font-en {
-        font-family: 'Styrene A', 'Share Tech Mono', monospace;
+        font-family: 'Styrene A', sans-serif !important;
         transition: font-family 0.3s ease;
     }
     .font-ko {
-        font-family: 'Pretendard', 'Share Tech Mono', sans-serif;
+        font-family: 'Orbit', sans-serif !important;
         transition: font-family 0.3s ease;
     }
-    /* Always keep monospace for code elements */
+    
+    /* Point fonts for emphasis */
+    .font-point-en {
+        font-family: 'PfStardust', monospace !important;
+        transition: font-family 0.3s ease;
+    }
+    .font-point-ko {
+        font-family: 'Galmuri11', monospace !important;
+        transition: font-family 0.3s ease;
+    }
+    
+    /* Code fonts */
     code, pre, .font-mono {
+        font-family: 'D2Coding', monospace !important;
+    }
+    .font-code {
         font-family: 'Share Tech Mono', monospace !important;
     }
 }

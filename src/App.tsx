@@ -3,6 +3,7 @@ import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Projects } from './components/Projects'
 import { Terminal } from './components/Terminal'
+import { Profile } from './components/Profile'
 import { Footer } from './components/Footer'
 import { ScanlineOverlay } from './components/ScanlineOverlay'
 import { LanguageProvider } from './contexts/LanguageContext'
@@ -27,6 +28,7 @@ function App() {
                     <main className="container mx-auto px-4">
                         <Hero />
                         <Terminal />
+                        <Profile />
                         <Projects />
                     </main>
                     <Footer />

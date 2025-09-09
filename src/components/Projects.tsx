@@ -110,7 +110,7 @@ export const Projects = () => {
                 <div className="mb-12 text-center">
                     <GlitchText
                         text={t('projects.title')}
-                        className="text-4xl font-bold mb-4"
+                        className={`text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
                     />
                     <div className="w-24 h-1 mx-auto bg-hot-pink"></div>
                 </div>
@@ -135,13 +135,13 @@ export const Projects = () => {
                                 ></div>
                             </div>
                             <div className="p-6 bg-gray-900 relative z-10">
-                                <div className="text-xs text-electric-blue font-mono mb-2">
+                                <div className="text-xs text-electric-blue mb-2">
                                     {project.category}
                                 </div>
                                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
                                 <p className="text-gray-400 text-sm">{project.description}</p>
                                 <div className="mt-4 flex justify-between items-center">
-                  <span className="text-xs text-hot-pink font-mono">
+                  <span className="text-xs text-hot-pink">
                     {t('projects.project')}.{project.id}
                   </span>
                                     <span className="text-xs text-gray-500 font-mono">

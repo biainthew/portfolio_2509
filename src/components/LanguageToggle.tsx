@@ -29,7 +29,7 @@ export const LanguageToggle: React.FC = () => {
         >
             <div className="language-switch relative">
                 <div className={`toggle-track ${language === 'ko' ? 'toggled' : ''}`}>
-                    <div className="toggle-indicator">
+                    <div className="toggle-indicator font-ko">
             <span
                 className={`toggle-text ${language === 'en' ? 'active' : ''}`}
             >
