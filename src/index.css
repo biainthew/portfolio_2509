@@ -1,0 +1,114 @@
+/* Font imports - must come before other CSS */
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/styrene-a/index.css');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard-dynamic-subset.css');
+
+/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+@layer base {
+    :root {
+        --color-electric-blue: 0, 230, 255;
+        --color-hot-pink: 255, 0, 128;
+    }
+    body {
+        @apply bg-black text-gray-200 font-sans;
+        text-rendering: optimizeLegibility;
+    }
+    ::selection {
+        @apply bg-hot-pink/30 text-white;
+    }
+    /* Language-specific font classes */
+    .font-en {
+        font-family: 'Styrene A', 'Share Tech Mono', monospace;
+        transition: font-family 0.3s ease;
+    }
+    .font-ko {
+        font-family: 'Pretendard', 'Share Tech Mono', sans-serif;
+        transition: font-family 0.3s ease;
+    }
+    /* Always keep monospace for code elements */
+    code, pre, .font-mono {
+        font-family: 'Share Tech Mono', monospace !important;
+    }
+}
+@layer utilities {
+    .text-electric-blue {
+        color: rgb(var(--color-electric-blue));
+    }
+    .text-hot-pink {
+        color: rgb(var(--color-hot-pink));
+    }
+    .bg-electric-blue {
+        background-color: rgb(var(--color-electric-blue));
+    }
+    .bg-hot-pink {
+        background-color: rgb(var(--color-hot-pink));
+    }
+    .border-electric-blue {
+        border-color: rgb(var(--color-electric-blue));
+    }
+    .border-hot-pink {
+        border-color: rgb(var(--color-hot-pink));
+    }
+    .from-electric-blue {
+        --tw-gradient-from: rgb(var(--color-electric-blue));
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(var(--color-electric-blue) / 0));
+    }
+    .to-hot-pink {
+        --tw-gradient-to: rgb(var(--color-hot-pink));
+    }
+    .from-hot-pink {
+        --tw-gradient-from: rgb(var(--color-hot-pink));
+        --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(var(--color-hot-pink) / 0));
+    }
+    .to-electric-blue {
+        --tw-gradient-to: rgb(var(--color-electric-blue));
+    }
+}
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+@keyframes flicker {
+    0% { opacity: 0.9; }
+    5% { opacity: 0.8; }
+    10% { opacity: 0.9; }
+    15% { opacity: 0.85; }
+    20% { opacity: 0.9; }
+    25% { opacity: 0.8; }
+    30% { opacity: 0.9; }
+    35% { opacity: 0.85; }
+    40% { opacity: 0.9; }
+    45% { opacity: 0.8; }
+    50% { opacity: 0.85; }
+    100% { opacity: 0.9; }
+}
+.animate-glitch {
+    animation: glitch 500ms infinite;
+}
+.animate-flicker {
+    animation: flicker 2s infinite;
+}
+/* Language transition effect */
+.language-transition {
+    transition: all 0.3s ease;
+}
