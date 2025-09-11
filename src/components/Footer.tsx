@@ -32,10 +32,11 @@ export const Footer = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                         <div>
                             <GlitchText
+                                key={language}
                                 text={t('footer.connect')}
                                 className={`text-3xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
                             />
-                            <div className="w-16 h-1 bg-hot-pink mb-6"></div>
+                            <div className={`h-1 bg-hot-pink mb-6 ${language === 'ko' ? 'w-28' : 'w-40'}`}></div>
                             <div className="text-gray-400 mb-6">
                                 <p>{t('footer.ready')}</p>
                                 <p className="mt-2">

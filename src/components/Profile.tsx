@@ -33,83 +33,92 @@ export const Profile = () => {
         // Frontend
         {
             name: 'React',
+            level: 80,
+            category: 'frontend',
+        },
+        {
+            name: 'Vue',
+            level: 80,
+            category: 'frontend',
+        },
+        {
+            name: 'JavaScript / Jquery',
             level: 90,
             category: 'frontend',
         },
         {
             name: 'TypeScript',
-            level: 85,
-            category: 'frontend',
-        },
-        {
-            name: 'Next.js',
             level: 80,
             category: 'frontend',
         },
         {
-            name: 'CSS/Tailwind',
-            level: 92,
+            name: 'HTML',
+            level: 100,
             category: 'frontend',
         },
         {
-            name: 'Three.js',
-            level: 75,
+            name: 'JPA',
+            level: 90,
+            category: 'frontend',
+        },
+        {
+            name: 'CSS / SCSS',
+            level: 100,
             category: 'frontend',
         },
         // Design
         {
-            name: 'UI/UX Design',
-            level: 88,
-            category: 'design',
-        },
-        {
             name: 'Figma',
-            level: 85,
+            level: 100,
             category: 'design',
         },
         {
-            name: 'Motion Graphics',
-            level: 78,
+            name: 'Responsive Design',
+            level: 90,
             category: 'design',
         },
         {
-            name: 'Digital Art',
-            level: 82,
+            name: 'Web/App Design',
+            level: 90,
             category: 'design',
         },
         {
-            name: 'Typography',
-            level: 76,
+            name: 'Publishing',
+            level: 100,
             category: 'design',
         },
         // Backend
         {
-            name: 'Node.js',
-            level: 75,
+            name: 'Java & Spring Boot',
+            level: 90,
             category: 'backend',
         },
         {
-            name: 'Express',
-            level: 72,
+            name: 'Oracle / MySQL / MariaDB',
+            level: 90,
             category: 'backend',
         },
         {
-            name: 'GraphQL',
-            level: 68,
-            category: 'backend',
-        },
-        {
-            name: 'Firebase',
+            name: 'JPA / TypeORM',
             level: 80,
             category: 'backend',
         },
         {
-            name: 'MongoDB',
-            level: 65,
+            name: 'Node.js',
+            level: 70,
+            category: 'backend',
+        },
+        {
+            name: 'Docker / Jenkins',
+            level: 70,
             category: 'backend',
         },
     ]
     const categories = [
+        {
+            id: 'backend',
+            name: t('profile.category.backend'),
+        },
         {
             id: 'frontend',
             name: t('profile.category.frontend'),
@@ -117,10 +126,6 @@ export const Profile = () => {
         {
             id: 'design',
             name: t('profile.category.design'),
-        },
-        {
-            id: 'backend',
-            name: t('profile.category.backend'),
         },
     ]
     const filteredSkills = skills.filter(
@@ -138,11 +143,12 @@ export const Profile = () => {
             <div className="container mx-auto px-4 relative z-10">
                 <div className="mb-12 text-center">
                     <GlitchText
+                        key={language}
                         text={t('profile.title')}
                         className={`text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
                         intensity="medium"
                     />
-                    <div className="w-24 h-1 mx-auto bg-hot-pink"></div>
+                    <div className={`w-24 h-1 mx-auto bg-hot-pink ${language === 'ko' ? 'w-14' : 'w-64'}`}></div>
                     <p className="mt-6 max-w-2xl mx-auto text-gray-400">
                         {t('profile.description')}
                     </p>

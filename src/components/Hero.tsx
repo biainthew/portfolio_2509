@@ -21,13 +21,15 @@ export const Hero = () => {
             <div className="relative z-10 max-w-4xl mx-auto text-center">
                 <div className={`mb-6 ${glitchActive ? 'animate-glitch' : ''} ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}>
                     <GlitchText
+                        key={language}
                         text={t('hero.title')}
                         className="text-5xl md:text-7xl font-bold mb-2 tracking-tighter"
                         intensity="high"
                     />
                 </div>
-                <div className="text-electric-blue text-xl md:text-2xl font-code mb-8 opacity-80">
+                <div className={`text-electric-blue text-xl md:text-2xl mb-8 opacity-80 ${language === 'ko' ? 'font-ko' : 'font-code'}`}>
                     <TypeAnimation
+                        key={language}
                         sequence={[
                             t('hero.subtitle1'),
                             2000,

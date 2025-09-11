@@ -15,10 +15,6 @@ export const Header = () => {
             href: '#profile',
         },
         {
-            label: t('nav.terminal'),
-            href: '#terminal',
-        },
-        {
             label: t('nav.projects'),
             href: '#projects',
         },
@@ -35,12 +31,13 @@ export const Header = () => {
                 <div className="flex items-center">
                     <div className="w-10 h-10 rounded-sm bg-hot-pink mr-3 relative overflow-hidden">
                         <div className="absolute inset-0 flex items-center justify-center text-black font-mono text-xs">
-                            &lt;/&gt;
+                            &lt; / &gt;
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-br from-electric-blue to-hot-pink opacity-50"></div>
                     </div>
                     <GlitchText
-                        text="CYBER.FOLIO"
+                        key={language}
+                        text="LEE.BIA"
                         className="text-2xl font-bold tracking-wider"
                     />
                 </div>

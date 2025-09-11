@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { GlitchText } from './GlitchText'
-import { useLanguage } from '../contexts/LanguageContext'
+import {useState} from 'react'
+import {GlitchText} from './GlitchText'
+import {useLanguage} from '../contexts/LanguageContext'
 // interface Project {
 //     id: number
 //     title: string
@@ -11,82 +11,185 @@ import { useLanguage } from '../contexts/LanguageContext'
 export const Projects = () => {
     const [activeProject, setActiveProject] = useState<number | null>(null)
     const [isGlitching, setIsGlitching] = useState(false)
-    const { language, t } = useLanguage()
+    const {language, t} = useLanguage()
     // Project data with language-specific fields
     const projectsData = {
         en: [
             {
                 id: 1,
-                title: 'NEURAL INTERFACE',
-                category: 'UI DESIGN',
+                title: 'SCRM',
+                category: 'Web App',
                 image:
                     'https://images.unsplash.com/photo-1558481795-7f0a7c906f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
                 description:
-                    'Experimental neural interface design with advanced biometric feedback systems.',
+                    'Hyundai Elevator digital contract platform. Handled front-end development, built PDF generation system based on user input data, conducted QA testing, and maintained notification systems including SMS and email.',
             },
             {
                 id: 2,
-                title: 'CYBERDECK',
-                category: 'WEB APP',
+                title: 'SDCS',
+                category: 'Responsive Web',
                 image:
                     'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
                 description:
-                    'Interactive dashboard for monitoring digital systems across multiple networks.',
+                    'Hyundai Elevator Direct contract platform. Designed UI/UX, converted Figma files to HTML/CSS, and developed PDF report generation system.',
             },
             {
                 id: 3,
-                title: 'NEON DISTRICT',
-                category: '3D DESIGN',
+                title: 'RUNTI',
+                category: 'Web App',
                 image:
                     'https://images.unsplash.com/photo-1569974498991-d3c12a504f95?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-                description:
-                    'Urban environment visualization with procedurally generated architecture.',
+                description: 'React-based workflow automation platform. Integrated Gmail API webhooks and built automated file collection features.',
             },
             {
                 id: 4,
-                title: 'DATA NEXUS',
-                category: 'API DESIGN',
+                title: 'TM App',
+                category: 'Mobile Web',
+                image:
+                    'https://images.unsplash.com/photo-1569974498991-d3c12a504f95?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description: 'Vue.js logistics management platform. Created UI design and converted Figma files to HTML/CSS for mobile-responsive interface.',
+            },
+            {
+                id: 5,
+                title: 'SMP',
+                category: 'Web App',
                 image:
                     'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
                 description:
-                    'Secure data transfer protocol with quantum encryption algorithms.',
+                    'SaaS management platform development. Designed interfaces and converted Figma files to HTML/CSS.',
+            },
+            {
+                id: 6,
+                title: 'Smart Logistics Platform',
+                category: 'Web App',
+                image:
+                    'https://images.unsplash.com/photo-1569974498991-d3c12a504f95?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description: 'Logistics management system for transportation, orders, and warehouse management. Converted Figma files to HTML/CSS.',
+            },
+            {
+                id: 7,
+                title: 'QR Manager',
+                category: 'Web App',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    'QR-based inspection management system. Converted Figma files to HTML/CSS.',
+            },
+            {
+                id: 8,
+                title: 'Safety Management Productization',
+                category: 'Web App',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    'Risk assessment system with customized UI/UX for different user types and data protection features. Converted Figma files to HTML/CSS.',
+            },
+            {
+                id: 9,
+                title: 'Supply Chain Management Productization',
+                category: 'Web App',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    'Subscription-based supply chain management system for warehouse management. Converted Figma files to HTML/CSS.',
+            },
+            {
+                id: 10,
+                title: 'SCRM Mod Quotation',
+                category: 'Web App',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    'Hyundai Elevator SCRM quotation standardization project. Converted Figma files to HTML/CSS.',
             },
         ],
         ko: [
             {
                 id: 1,
-                title: '신경 인터페이스',
-                category: 'UI 디자인',
+                title: 'SCRM',
+                category: '웹 앱',
                 image:
                     'https://images.unsplash.com/photo-1558481795-7f0a7c906f5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
                 description:
-                    '고급 생체 인식 피드백 시스템을 갖춘 실험적 신경 인터페이스 디자인.',
+                    '현대엘리베이터 전자계약 시스템으로 해당 프로젝트에서 퍼블리싱, 입력 데이터 기반 소견서 PDF 생성 시스템 기획 및 개발, QA, 알림톡/메일 시스템 유지보수 및 확장을 담당했습니다.',
             },
             {
                 id: 2,
-                title: '사이버덱',
-                category: '웹 앱',
+                title: 'SDCS',
+                category: '반응형 웹',
                 image:
                     'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
                 description:
-                    '여러 네트워크에서 디지털 시스템을 모니터링하는 대화형 대시보드.',
+                    '현대엘리베이터 다이렉트 전자계약 시스템으로 해당 프로젝트에서 디자인, 퍼블리싱, 입력 데이터 기반 소견서 PDF 생성 시스템 기획 및 개발을 담당했습니다.',
             },
             {
                 id: 3,
-                title: '네온 디스트릭트',
-                category: '3D 디자인',
+                title: 'RUNTI',
+                category: '웹 앱',
                 image:
                     'https://images.unsplash.com/photo-1569974498991-d3c12a504f95?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
-                description: '절차적으로 생성된 건축물이 있는 도시 환경 시각화.',
+                description: 'React 기반 워크플로우 자동화 시스템으로 해당 프로젝트에서 Gmail API Webhook 연동, 첨부파일 자동 수집 기능 개발을 담당했습니다.',
             },
             {
                 id: 4,
-                title: '데이터 넥서스',
-                category: 'API 디자인',
+                title: 'TM 앱',
+                category: '모바일 웹',
+                image:
+                    'https://images.unsplash.com/photo-1569974498991-d3c12a504f95?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description: 'Vue.js 기반 물류 운송 관리 시스템으로 해당 프로젝트에서 디자인, 퍼블리싱을 담당했습니다.',
+            },
+            {
+                id: 5,
+                title: 'SMP',
+                category: '웹 앱',
                 image:
                     'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
                 description:
-                    '양자 암호화 알고리즘을 사용한 안전한 데이터 전송 프로토콜.',
+                    'SaaS 관리 플랫폼 시스템 개발 프로젝트로 해당 프로젝트에서 디자인 및 퍼블리싱을 담당했습니다.',
+            },
+            {
+                id: 6,
+                title: '스마트물류플랫폼',
+                category: '웹 앱',
+                image:
+                    'https://images.unsplash.com/photo-1569974498991-d3c12a504f95?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description: '물류 운송, 주문, 창고관리 시스템으로 해당 프로젝트에서 퍼블리싱을 담당했습니다.',
+            },
+            {
+                id: 7,
+                title: 'QR 매니저',
+                category: '웹 앱',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    'QR 스캔 기반 점검 관리 시스템으로 해당 프로젝트에서 퍼블리싱을 담당했습니다.',
+            },
+            {
+                id: 8,
+                title: '안전관리 제품화',
+                category: '웹 앱',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    '위험성 평가 시스템의 사용자별 맞춤 UI/UX와 데이터 보호 기능을 구현한 프로젝트로 해당 프로젝트에서 퍼블리싱을 담당했습니다.',
+            },
+            {
+                id: 9,
+                title: '공급망관리 제품화',
+                category: '웹 앱',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    '물류창고 관리 구독 서비스 기반 공급망 관리 시스템 제품화 프로젝트로 해당 프로젝트에서 퍼블리싱을 담당했습니다.',
+            },
+            {
+                id: 10,
+                title: 'SCRM Mod 견적',
+                category: '웹 앱',
+                image:
+                    'https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+                description:
+                    '현대엘리베이터 SCRM 시스템의 견적 표준화 프로젝트로 해당 프로젝트에서 퍼블리싱을 담당했습니다.',
             },
         ],
     }
@@ -109,16 +212,17 @@ export const Projects = () => {
             <div className="container mx-auto px-4">
                 <div className="mb-12 text-center">
                     <GlitchText
+                        key={language}
                         text={t('projects.title')}
                         className={`text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
                     />
-                    <div className="w-24 h-1 mx-auto bg-hot-pink"></div>
+                    <div className={`w-24 h-1 mx-auto bg-hot-pink ${language === 'ko' ? 'w-28' : 'w-40'}`}></div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {projects.map((project) => (
                         <div
                             key={project.id}
-                            className="group relative overflow-hidden border border-gray-800 rounded-md"
+                            className="group relative overflow-hidden border border-gray-800 rounded-md flex flex-col"
                             onMouseEnter={() => handleMouseEnter(project.id)}
                             onMouseLeave={handleMouseLeave}
                         >
@@ -134,23 +238,20 @@ export const Projects = () => {
                                     className={`absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70 ${activeProject === project.id ? 'chromatic-aberration' : ''}`}
                                 ></div>
                             </div>
-                            <div className="p-6 bg-gray-900 relative z-10">
+                            <div className="p-6 bg-gray-900 relative z-10 flex flex-col flex-1">
                                 <div className="text-xs text-electric-blue mb-2">
                                     {project.category}
                                 </div>
                                 <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                                <p className="text-gray-400 text-sm">{project.description}</p>
+                                <p className="text-gray-400 text-sm flex-1">{project.description}</p>
                                 <div className="mt-4 flex justify-between items-center">
-                  <span className="text-xs text-hot-pink">
-                    {t('projects.project')}.{project.id}
-                  </span>
-                                    <span className="text-xs text-gray-500 font-mono">
-                    {t('projects.viewDetails')} &gt;
-                  </span>
+                                    <span className="text-xs text-hot-pink">{t('projects.project')}.{project.id}</span>
+                                    <span className="text-xs text-white font-mono">{t('projects.viewDetails')} &gt;</span>
                                 </div>
                             </div>
                             {activeProject === project.id && (
-                                <div className="absolute inset-0 border-2 border-electric-blue pointer-events-none"></div>
+                                <div
+                                    className="absolute inset-0 border-2 border-electric-blue pointer-events-none"></div>
                             )}
                         </div>
                     ))}
@@ -158,11 +259,11 @@ export const Projects = () => {
             </div>
             <style jsx global>{`
                 .chromatic-aberration {
-                    text-shadow:
-                            2px 0 0 rgba(255, 0, 255, 0.5),
-                            -2px 0 0 rgba(0, 255, 255, 0.5);
+                    text-shadow: 2px 0 0 rgba(255, 0, 255, 0.5),
+                    -2px 0 0 rgba(0, 255, 255, 0.5);
                     position: relative;
                 }
+
                 .chromatic-aberration::before {
                     content: '';
                     position: absolute;
@@ -177,6 +278,7 @@ export const Projects = () => {
                     mix-blend-mode: screen;
                     background-color: rgba(255, 0, 255, 0.5);
                 }
+
                 .chromatic-aberration::after {
                     content: '';
                     position: absolute;
