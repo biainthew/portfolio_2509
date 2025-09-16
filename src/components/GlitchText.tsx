@@ -54,6 +54,9 @@ export const GlitchText: React.FC<GlitchTextProps> = ({
                     ? '0.05em 0 0 rgba(255,0,255,0.75), -0.025em -0.05em 0 rgba(0,255,255,0.75), 0.025em 0.05em 0 rgba(0,255,0,0.75)'
                     : 'none',
                 animation: isGlitching ? 'glitch 500ms infinite' : 'none',
+                position: 'relative',
+                contain: 'layout style',
+                willChange: 'transform'
             }}
         >
       {displayText}

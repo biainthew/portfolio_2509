@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {GlitchText} from './GlitchText'
 import {useLanguage} from '../contexts/LanguageContext'
+import { Link } from 'react-router-dom'
 // interface Project {
 //     id: number
 //     title: string
@@ -220,8 +221,9 @@ export const Projects = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {projects.map((project) => (
-                        <div
+                        <Link
                             key={project.id}
+                            to={`/project/${project.id}`}
                             className="group relative overflow-hidden border border-gray-800 rounded-md flex flex-col"
                             onMouseEnter={() => handleMouseEnter(project.id)}
                             onMouseLeave={handleMouseLeave}
@@ -250,17 +252,17 @@ export const Projects = () => {
                                 </div>
                             </div>
                             {activeProject === project.id && (
-                                <div
-                                    className="absolute inset-0 border-2 border-electric-blue pointer-events-none"></div>
+                                <div className="absolute inset-0 border-2 border-electric-blue pointer-events-none"></div>
                             )}
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
             <style jsx global>{`
                 .chromatic-aberration {
-                    text-shadow: 2px 0 0 rgba(255, 0, 255, 0.5),
-                    -2px 0 0 rgba(0, 255, 255, 0.5);
+                    text-shadow:
+                            2px 0 0 rgba(255, 0, 255, 0.5),
+                            -2px 0 0 rgba(0, 255, 255, 0.5);
                     position: relative;
                 }
 

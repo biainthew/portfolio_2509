@@ -1,6 +1,13 @@
 import './index.css'
-import { createRoot } from 'react-dom/client'
 import App from "./App"
+import { BrowserRouter } from 'react-router-dom'
+import {createRoot} from "react-dom/client";
+import {StrictMode} from "react";
 
-const root = createRoot(document.getElementById("root")!)
-root.render(<App />)
+createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+        <BrowserRouter basename="/portfolio_2509">
+            <App />
+        </BrowserRouter>
+    </StrictMode>,
+)

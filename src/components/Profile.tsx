@@ -57,7 +57,7 @@ export const Profile = () => {
             category: 'frontend',
         },
         {
-            name: 'JPA',
+            name: 'JSP',
             level: 90,
             category: 'frontend',
         },

@@ -25,7 +25,12 @@ export const Header = () => {
     ]
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 py-6 px-4 border-b border-electric-blue/30 backdrop-blur-sm bg-black/80 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            className={`fixed top-0 left-0 right-0 z-50 h-20 py-6 px-4 border-b border-electric-blue/30 backdrop-blur-sm bg-black/80 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            style={{ 
+                height: '80px',
+                contain: 'layout style',
+                willChange: 'auto'
+            }}
         >
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center">

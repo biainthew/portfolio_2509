@@ -1,5 +1,5 @@
 /* fonts */
-@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); /* 포인트 한글 - Galmuri14 */
+@import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); /* 포인트 한글 - Galmuri11 */
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap'); /* 코드 - Share Tech Mono */
 
 /* 포인트 영어 - PfStardust */
@@ -60,7 +60,7 @@
         --color-hot-pink: 255, 0, 128;
     }
     body {
-        @apply bg-black text-gray-200 font-sans pt-24;
+        @apply bg-black text-gray-200 font-sans;
         text-rendering: optimizeLegibility;
     }
     ::selection {
@@ -164,6 +164,8 @@
 }
 .animate-glitch {
     animation: glitch 500ms infinite;
+    contain: layout;
+    will-change: transform;
 }
 .animate-flicker {
     animation: flicker 2s infinite;
