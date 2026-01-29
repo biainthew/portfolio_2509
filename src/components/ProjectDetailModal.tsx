@@ -3,11 +3,11 @@ import {
     ChevronLeftIcon,
     ChevronRightIcon,
     XIcon,
-    GithubIcon,
     ExternalLinkIcon,
     CodeIcon,
     InfoIcon,
 } from 'lucide-react'
+import { SiGithub } from "react-icons/si";
 import {useLanguage} from '../contexts/LanguageContext'
 import {ProjectService} from '../services/projectService'
 import type {Project} from '../lib/supabase'
@@ -40,7 +40,7 @@ export const ProjectDetailModal = ({
             setIsLoading(true)
             setError(null)
 
-            const fetchProject = async () => {
+            void (async () => {
                 try {
                     const projectData = await ProjectService.getProjectById(projectId, language)
                     if (projectData) {
@@ -54,9 +54,7 @@ export const ProjectDetailModal = ({
                 } finally {
                     setIsLoading(false)
                 }
-            }
-
-            fetchProject()
+            })();
         }
     }, [isOpen, projectId, language])
 
@@ -75,16 +73,24 @@ export const ProjectDetailModal = ({
     }, [isOpen])
     const handleNextImage = () => {
         if (project?.gallery_url) {
-            setActiveImage((prev) => (prev + 1) % project?.gallery_url.length)
+            const length = project?.gallery_url?.length ?? 0;
+
+            if (length > 0) {
+                setActiveImage((prev) => (prev + 1) % length);
+            }
         }
     }
 
     const handlePrevImage = () => {
         if (project?.gallery_url) {
-            setActiveImage(
-                (prev) =>
-                    (prev - 1 + project?.gallery_url.length) % project?.gallery_url.length,
-            )
+            const length = project?.gallery_url?.length ?? 0;
+
+            if (length > 0) {
+                setActiveImage(
+                    (prev) =>
+                        (prev - 1 + length) % length,
+                )
+            }
         }
     }
 
@@ -141,13 +147,13 @@ export const ProjectDetailModal = ({
                                     className="bg-black/80 backdrop-blur-sm border border-gray-800 rounded-lg p-3 shadow-lg">
                                     {project?.links?.find(link => link.type === 'github') && (
                                         <a
-                                            href={project?.links?.find(link => link.type === 'github')?.url}
+                                            href={project.links.find(link => link.type === 'github')!.url!}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center w-12 h-12 bg-hot-pink hover:bg-hot-pink/80 rounded-full mb-4 group relative"
                                             aria-label="GitHub Repository"
                                         >
-                                            <GithubIcon size={24} className="text-white"/>
+                                            <SiGithub size={24} className="text-white"/>
                                             <span
                                                 className="absolute left-full ml-2 px-2 py-1 bg-hot-pink text-white text-xs font-mono rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
                                                 {language === 'en' ? 'GitHub' : 'GitHub'}
@@ -156,7 +162,7 @@ export const ProjectDetailModal = ({
                                     )}
                                     {project?.links?.find(link => link.type === 'live') && (
                                         <a
-                                            href={project?.links?.find(link => link.type === 'live')?.url}
+                                            href={project.links.find(link => link.type === 'live')!.url!}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center w-12 h-12 bg-electric-blue hover:bg-electric-blue/80 rounded-full mb-4 group relative"
@@ -171,7 +177,7 @@ export const ProjectDetailModal = ({
                                     )}
                                     {project?.links?.find(link => link.type === 'docs') && (
                                         <a
-                                            href={project?.links?.find(link => link.type === 'docs')?.url}
+                                            href={project.links.find(link => link.type === 'docs')!.url!}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="flex items-center justify-center w-12 h-12 bg-gray-700 hover:bg-gray-600 rounded-full group relative"
@@ -251,18 +257,18 @@ export const ProjectDetailModal = ({
                                             className="bg-black/80 backdrop-blur-sm border border-gray-800 rounded-full p-2 shadow-lg flex gap-2">
                                             {project?.links?.find(link => link.type === 'github') && (
                                                 <a
-                                                    href={project?.links?.find(link => link.type === 'github')?.url}
+                                                    href={project.links.find(link => link.type === 'github')!.url!}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex items-center justify-center w-10 h-10 bg-hot-pink hover:bg-hot-pink/80 rounded-full"
                                                     aria-label="GitHub Repository"
                                                 >
-                                                    <GithubIcon size={20} className="text-white"/>
+                                                    <SiGithub size={20} className="text-white"/>
                                                 </a>
                                             )}
                                             {project?.links?.find(link => link.type === 'live') && (
                                                 <a
-                                                    href={project?.links?.find(link => link.type === 'live')?.url}
+                                                    href={project.links.find(link => link.type === 'live')!.url!}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex items-center justify-center w-10 h-10 bg-electric-blue hover:bg-electric-blue/80 rounded-full"
@@ -273,7 +279,7 @@ export const ProjectDetailModal = ({
                                             )}
                                             {project?.links?.find(link => link.type === 'docs') && (
                                                 <a
-                                                    href={project?.links?.find(link => link.type === 'docs')?.url}
+                                                    href={project.links.find(link => link.type === 'docs')!.url!}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="flex items-center justify-center w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full"
@@ -325,7 +331,7 @@ export const ProjectDetailModal = ({
                                                 {/* Project Image Preview */}
                                                 <div className="mt-8 border border-gray-800 rounded-lg overflow-hidden">
                                                     <img
-                                                        src={project?.image}
+                                                        src={project?.image || ""}
                                                         alt={project?.title}
                                                         className="w-full h-auto"
                                                     />
@@ -342,7 +348,7 @@ export const ProjectDetailModal = ({
                                                         className="aspect-[16/9] mb-8 overflow-hidden border border-gray-800 rounded-lg relative"
                                                     >
                                                         <img
-                                                            src={project?.image}
+                                                            src={project?.image || ""}
                                                             alt={project?.title}
                                                             className="w-full h-full object-cover"
                                                         />
@@ -454,8 +460,8 @@ export const ProjectDetailModal = ({
                                                                     <div
                                                                         className="w-10 h-10 bg-gray-900/70 border border-gray-800 rounded-lg flex items-center justify-center p-1.5 mr-4 flex-shrink-0">
                                                                         <img
-                                                                            src={tech.icon}
-                                                                            alt={tech.name}
+                                                                            src={tech.icon || ""}
+                                                                            alt={tech.name || ""}
                                                                             className="w-full h-full object-contain"
                                                                         />
                                                                     </div>

@@ -286,7 +286,7 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                                 className={`relative h-64 overflow-hidden ${activeProject === project.project_id && isGlitching ? 'animate-glitch' : ''}`}
                             >
                                 <img
-                                    src={project.image}
+                                    src={project.image || ""}
                                     alt={project.title}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
@@ -294,7 +294,7 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                                     className={`absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70 ${activeProject === project.project_id ? 'chromatic-aberration' : ''}`}
                                 ></div>
                             </div>
-                            <div className="p-6 bg-gray-900 relative z-10">
+                            <div className="p-6 bg-gray-900 relative flex-1">
                                 <div className="text-xs text-electric-blue mb-2">
                                     {project.category}
                                 </div>
