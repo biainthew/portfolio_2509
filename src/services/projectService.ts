@@ -13,7 +13,7 @@ export class ProjectService {
           contributions:contribution(*)
         `)
         .eq('lang', language)
-        .order('created_at', { ascending: false })
+        .order('start_date', { ascending: false })
 
       if (error) {
         console.error('Error fetching projects:', error)
