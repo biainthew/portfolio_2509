@@ -15,19 +15,19 @@ export const Hero = () => {
     return (
         <section
             id="home"
-            className={`py-20 relative ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            className={`py-12 md:py-20 relative px-4 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
         >
             <div className="grid-bg absolute inset-0 z-0"></div>
             <div className="relative z-10 max-w-4xl mx-auto text-center">
-                <div className={`mb-6 ${glitchActive ? 'animate-glitch' : ''} ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}>
+                <div className={`mb-4 md:mb-6 ${glitchActive ? 'animate-glitch' : ''} ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}>
                     <GlitchText
                         key={language}
                         text={t('hero.title')}
-                        className="text-5xl md:text-7xl font-bold mb-2 tracking-tighter"
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-2 tracking-tighter"
                         intensity="high"
                     />
                 </div>
-                <div className={`text-electric-blue text-xl md:text-2xl mb-8 opacity-80 ${language === 'ko' ? 'font-ko' : 'font-code'}`}>
+                <div className={`text-electric-blue text-base sm:text-lg md:text-xl lg:text-2xl mb-6 md:mb-8 opacity-80 ${language === 'ko' ? 'font-ko' : 'font-code'}`}>
                     <TypeAnimation
                         key={language}
                         sequence={[
@@ -43,13 +43,13 @@ export const Hero = () => {
                         repeat={Infinity}
                     />
                 </div>
-                <div className={`flex justify-center space-x-4 mt-10 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}>
-                    <button className="cyber-button bg-transparent border-2 border-electric-blue text-electric-blue px-8 py-3 relative overflow-hidden group w-56">
+                <div className={`flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6 md:mt-10 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}>
+                    <button className="cyber-button bg-transparent border-2 border-electric-blue text-electric-blue px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base relative overflow-hidden group w-full sm:w-48 md:w-56">
                         <span className="relative z-10">{t('hero.button1')}</span>
                         <span className="absolute inset-0 bg-electric-blue transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
                         <span className="absolute inset-0 bg-hot-pink opacity-0 group-hover:opacity-30 transition-opacity duration-300 delay-100"></span>
                     </button>
-                    <button className="cyber-button bg-transparent border-2 border-hot-pink text-hot-pink px-8 py-3 relative overflow-hidden group w-56">
+                    <button className="cyber-button bg-transparent border-2 border-hot-pink text-hot-pink px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base relative overflow-hidden group w-full sm:w-48 md:w-56">
                         <span className="relative z-10">{t('hero.button2')}</span>
                         <span className="absolute inset-0 bg-hot-pink transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
                         <span className="absolute inset-0 bg-electric-blue opacity-0 group-hover:opacity-30 transition-opacity duration-300 delay-100"></span>

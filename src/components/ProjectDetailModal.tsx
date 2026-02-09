@@ -207,44 +207,44 @@ export const ProjectDetailModal = ({
                                 {/* Header Section */}
                                 <div
                                     className="relative bg-gray-900/70 border-b border-electric-blue/30 backdrop-blur-sm">
-                                    <div className="container mx-auto px-4 py-6">
-                                        <div className="flex flex-col gap-4">
+                                    <div className="container mx-auto px-4 py-4 md:py-6">
+                                        <div className="flex flex-col gap-3 md:gap-4">
                                             <div>
                                                 <h1
-                                                    className="text-3xl md:text-4xl font-bold"
+                                                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold"
                                                 >
-                                                    {project?.title}
+                                                    {project?.title?.[language]}
                                                 </h1>
-                                                <div className="flex items-center mt-2">
+                                                <div className="flex flex-wrap items-center gap-2 mt-2">
                                                     <span
-                                                        className="inline-block px-2 py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-xs font-mono rounded">
-                                                        {project?.category}
+                                                        className="inline-block px-1.5 py-0.5 md:px-2 md:py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-[10px] md:text-xs font-mono rounded">
+                                                        {project?.category?.[language]}
                                                     </span>
-                                                    <span className="ml-3 text-gray-400 font-mono text-sm">
-                                                        {project?.subtitle}
+                                                    <span className="text-gray-400 font-mono text-xs md:text-sm">
+                                                        {project?.subtitle?.[language]}
                                                     </span>
                                                 </div>
                                             </div>
                                             {/* Additional tags/chips */}
-                                            <div className="flex flex-wrap gap-2 mt-2">
-                                                {project?.tag &&
-                                                    project?.tag.map((tag, index) => (
+                                            <div className="flex flex-wrap gap-1.5 md:gap-2">
+                                                {project?.tag?.[language] &&
+                                                    project?.tag[language].map((tag, index) => (
                                                         <span
                                                             key={index}
-                                                            className="px-2 py-1 bg-gray-800/80 border border-gray-700 text-gray-300 text-xs font-mono rounded-full"
+                                                            className="px-1.5 py-0.5 md:px-2 md:py-1 bg-gray-800/80 border border-gray-700 text-gray-300 text-[10px] md:text-xs font-mono rounded-full"
                                                         >
                                                             {tag}
                                                         </span>
                                                     ))}
                                                 <span
-                                                    className="px-2 py-1 bg-hot-pink/20 border border-hot-pink/40 text-hot-pink text-xs font-mono rounded-full">
+                                                    className="px-1.5 py-0.5 md:px-2 md:py-1 bg-hot-pink/20 border border-hot-pink/40 text-hot-pink text-[10px] md:text-xs font-mono rounded-full">
                                                     {project?.start_date && project?.end_date ? `${project.start_date} ~ ${project.end_date}` : ''}
                                                 </span>
                                                 <span
-                                                    className="px-2 py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-xs font-mono rounded-full flex items-center">
+                                                    className="px-1.5 py-0.5 md:px-2 md:py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-[10px] md:text-xs font-mono rounded-full flex items-center">
                                                     <span
-                                                        className="w-1.5 h-1.5 rounded-full bg-electric-blue mr-1"></span>
-                                                    {project?.status}
+                                                        className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-electric-blue mr-1"></span>
+                                                    {project?.status?.[language]}
                                                 </span>
                                             </div>
                                         </div>
@@ -292,50 +292,42 @@ export const ProjectDetailModal = ({
                                     </div>
                                 )}
                                 {/* Main Content */}
-                                <div className="container mx-auto px-4 py-8">
-                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                                <div className="container mx-auto px-4 py-4 md:py-8">
+                                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8">
                                         {/* Left Sidebar - Navigation */}
                                         <div className="lg:col-span-3">
-                                            <div className="sticky top-8">
-                                                <nav className="space-y-1">
+                                            <div className="lg:sticky lg:top-8">
+                                                <nav className="flex lg:flex-col gap-2 lg:space-y-1 overflow-x-auto pb-2 lg:pb-0">
                                                     <button
                                                         onClick={() => setActiveTab('overview')}
-                                                        className={`w-full text-left px-4 py-3 rounded-md flex items-center space-x-3 transition-colors ${activeTab === 'overview' ? 'bg-gray-800 text-electric-blue border-l-2 border-electric-blue' : 'hover:bg-gray-900 text-gray-400'}`}
+                                                        className={`flex-shrink-0 lg:w-full text-left px-3 md:px-4 py-2 md:py-3 rounded-md flex items-center space-x-2 md:space-x-3 transition-colors text-xs md:text-sm ${activeTab === 'overview' ? 'bg-gray-800 text-electric-blue border-l-2 border-electric-blue' : 'hover:bg-gray-900 text-gray-400 border border-gray-700 lg:border-0'}`}
                                                     >
-                                                        <InfoIcon size={18}/>
-                                                        <span className="font-mono text-sm">
+                                                        <InfoIcon size={16} className="md:w-[18px] md:h-[18px]"/>
+                                                        <span className="font-mono whitespace-nowrap">
                                                             {language === 'en'
-                                                                ? 'PROJECT OVERVIEW'
-                                                                : '프로젝트 개요'}
+                                                                ? 'OVERVIEW'
+                                                                : '개요'}
                                                         </span>
                                                     </button>
                                                     <button
                                                         onClick={() => setActiveTab('contribution')}
-                                                        className={`w-full text-left px-4 py-3 rounded-md flex items-center space-x-3 transition-colors ${activeTab === 'contribution' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400'}`}
+                                                        className={`flex-shrink-0 lg:w-full text-left px-3 md:px-4 py-2 md:py-3 rounded-md flex items-center space-x-2 md:space-x-3 transition-colors text-xs md:text-sm ${activeTab === 'contribution' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400 border border-gray-700 lg:border-0'}`}
                                                     >
-                                                        <CodeIcon size={18}/>
-                                                        <span className="font-mono text-sm">
+                                                        <CodeIcon size={16} className="md:w-[18px] md:h-[18px]"/>
+                                                        <span className="font-mono whitespace-nowrap">
                                                             {language === 'en' ? 'CONTRIBUTION' : '기여도'}
                                                         </span>
                                                     </button>
                                                     <button
                                                         onClick={() => setActiveTab('troubleshooting')}
-                                                        className={`w-full text-left px-4 py-3 rounded-md flex items-center space-x-3 transition-colors ${activeTab === 'troubleshooting' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400'}`}
+                                                        className={`flex-shrink-0 lg:w-full text-left px-3 md:px-4 py-2 md:py-3 rounded-md flex items-center space-x-2 md:space-x-3 transition-colors text-xs md:text-sm ${activeTab === 'troubleshooting' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400 border border-gray-700 lg:border-0'}`}
                                                     >
-                                                        <ChevronRightIcon size={18}/>
-                                                        <span className="font-mono text-sm">
+                                                        <ChevronRightIcon size={16} className="md:w-[18px] md:h-[18px]"/>
+                                                        <span className="font-mono whitespace-nowrap">
                                                             {language === 'en' ? 'CHALLENGES' : '문제 해결'}
                                                         </span>
                                                     </button>
                                                 </nav>
-                                                {/* Project Image Preview */}
-                                                <div className="mt-8 border border-gray-800 rounded-lg overflow-hidden">
-                                                    <img
-                                                        src={project?.image || ""}
-                                                        alt={project?.title}
-                                                        className="w-full h-auto"
-                                                    />
-                                                </div>
                                             </div>
                                         </div>
                                         {/* Main Content Area */}
@@ -343,38 +335,26 @@ export const ProjectDetailModal = ({
                                             {/* Overview Tab */}
                                             {activeTab === 'overview' && (
                                                 <div>
-                                                    {/* Hero Image */}
-                                                    <div
-                                                        className="aspect-[16/9] mb-8 overflow-hidden border border-gray-800 rounded-lg relative"
-                                                    >
-                                                        <img
-                                                            src={project?.image || ""}
-                                                            alt={project?.title}
-                                                            className="w-full h-full object-cover"
-                                                        />
-                                                        <div
-                                                            className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
-                                                    </div>
                                                     {/* Project Overview */}
-                                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-8">
                                                         {project?.client && (
                                                             <div
-                                                                className="bg-gray-900/50 border border-gray-800 rounded-lg p-5">
-                                                                <h3 className="text-sm text-gray-400 font-mono uppercase mb-2">
+                                                                className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                                <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
                                                                     {t('projectDetail.client')}
                                                                 </h3>
-                                                                <p className="text-lg">{project?.client}</p>
+                                                                <p className="text-sm md:text-lg">{project?.client?.[language]}</p>
                                                             </div>
                                                         )}
                                                         {!project?.client && (
                                                             <div
-                                                                className="bg-gray-900/50 border border-gray-800 rounded-lg p-5">
-                                                                <h3 className="text-sm text-gray-400 font-mono uppercase mb-2">
+                                                                className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                                <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
                                                                     {language === 'en'
                                                                         ? 'PROJECT TYPE'
                                                                         : '프로젝트 유형'}
                                                                 </h3>
-                                                                <p className="text-lg">
+                                                                <p className="text-sm md:text-lg">
                                                                     {language === 'en'
                                                                         ? 'Open Source'
                                                                         : '오픈 소스'}
@@ -382,64 +362,46 @@ export const ProjectDetailModal = ({
                                                             </div>
                                                         )}
                                                         <div
-                                                            className="bg-gray-900/50 border border-gray-800 rounded-lg p-5">
-                                                            <h3 className="text-sm text-gray-400 font-mono uppercase mb-2">
+                                                            className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                            <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
                                                                 {t('projectDetail.role')}
                                                             </h3>
-                                                            <p className="text-lg">{project?.role}</p>
+                                                            <p className="text-sm md:text-lg">{project?.role?.[language]}</p>
                                                         </div>
                                                         <div
-                                                            className="bg-gray-900/50 border border-gray-800 rounded-lg p-5">
-                                                            <h3 className="text-sm text-gray-400 font-mono uppercase mb-2">
+                                                            className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5 col-span-2 md:col-span-1">
+                                                            <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
                                                                 {t('projectDetail.timeline')}
                                                             </h3>
-                                                            <p className="text-lg">{project?.start_date && project?.end_date ? `${project.start_date} ~ ${project.end_date}` : ''}</p>
+                                                            <p className="text-sm md:text-lg">{project?.start_date && project?.end_date ? `${project.start_date} ~ ${project.end_date}` : ''}</p>
                                                         </div>
                                                     </div>
                                                     {/* Project Description */}
-                                                    <div className="mb-8">
-                                                        <h2 className="text-2xl font-bold mb-4">
+                                                    <div className="mb-6 md:mb-8">
+                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
                                                             {language === 'en'
                                                                 ? 'Project Description'
                                                                 : '프로젝트 설명'}
                                                         </h2>
-                                                        <p className="text-gray-300 mb-6">
-                                                            {project?.description}
+                                                        <p className="text-gray-300 text-sm md:text-base mb-4 md:mb-6">
+                                                            {project?.description?.[language]}
                                                         </p>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                            <div>
-                                                                <h3 className="text-xl font-bold mb-3 text-electric-blue">
-                                                                    {t('projectDetail.challenge')}
-                                                                </h3>
-                                                                <p className="text-gray-300">
-                                                                    {project?.challenge}
-                                                                </p>
-                                                            </div>
-                                                            <div>
-                                                                <h3 className="text-xl font-bold mb-3 text-hot-pink">
-                                                                    {t('projectDetail.solution')}
-                                                                </h3>
-                                                                <p className="text-gray-300">
-                                                                    {project?.solution}
-                                                                </p>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                     {/* Key Features */}
-                                                    <div className="mb-8">
-                                                        <h2 className="text-2xl font-bold mb-4">
+                                                    <div className="mb-6 md:mb-8">
+                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
                                                             {language === 'en' ? 'Key Features' : '주요 기능'}
                                                         </h2>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            {project?.result?.map((feature, index) => (
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                                            {project?.result?.[language]?.map((feature, index) => (
                                                                 <div key={index} className="flex items-start">
                                                                     <div
-                                                                        className="flex-shrink-0 w-6 h-6 rounded-full border border-hot-pink flex items-center justify-center mr-3 mt-0.5">
-                                                                        <span className="text-hot-pink text-xs">
+                                                                        className="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full border border-hot-pink flex items-center justify-center mr-2 md:mr-3 mt-0.5">
+                                                                        <span className="text-hot-pink text-[10px] md:text-xs">
                                                                             {index + 1}
                                                                         </span>
                                                                     </div>
-                                                                    <span className="text-gray-300">
+                                                                    <span className="text-gray-300 text-sm md:text-base">
                                                                         {feature}
                                                                     </span>
                                                                 </div>
@@ -447,18 +409,18 @@ export const ProjectDetailModal = ({
                                                         </div>
                                                     </div>
                                                     {/* Tech Stack - Redesigned to be more compact */}
-                                                    <div className="mb-8">
-                                                        <h2 className="text-2xl font-bold mb-4">
+                                                    <div className="mb-6 md:mb-8">
+                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
                                                             {t('projectDetail.techStack')}
                                                         </h2>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                                                             {project?.technologies?.map((tech, index) => (
                                                                 <div
                                                                     key={index}
-                                                                    className="bg-gray-900/30 border border-gray-800 rounded-lg p-4 flex items-start"
+                                                                    className="bg-gray-900/30 border border-gray-800 rounded-lg p-3 md:p-4 flex items-start"
                                                                 >
                                                                     <div
-                                                                        className="w-10 h-10 bg-gray-900/70 border border-gray-800 rounded-lg flex items-center justify-center p-1.5 mr-4 flex-shrink-0">
+                                                                        className="w-8 h-8 md:w-10 md:h-10 bg-gray-900/70 border border-gray-800 rounded-lg flex items-center justify-center p-1 md:p-1.5 mr-3 md:mr-4 flex-shrink-0">
                                                                         <img
                                                                             src={tech.icon || ""}
                                                                             alt={tech.name || ""}
@@ -470,7 +432,7 @@ export const ProjectDetailModal = ({
                                                                             {tech.name}
                                                                         </h3>
                                                                         <p className="text-xs text-gray-400">
-                                                                            {tech.description}
+                                                                            {tech.description?.[language]}
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -478,27 +440,27 @@ export const ProjectDetailModal = ({
                                                         </div>
                                                     </div>
                                                     {/* Results Section */}
-                                                    <div className="mb-8">
-                                                        <h2 className="text-2xl font-bold mb-4">
+                                                    <div className="mb-6 md:mb-8">
+                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
                                                             {language === 'en'
                                                                 ? 'Results & Impact'
                                                                 : '결과 및 영향'}
                                                         </h2>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            {project?.result?.map((result, index) => (
+                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                                            {project?.result?.[language]?.map((result, index) => (
                                                                 <div
                                                                     key={index}
-                                                                    className="bg-gray-900/50 border border-gray-800 rounded-lg p-4"
+                                                                    className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4"
                                                                 >
                                                                     <div className="flex items-center">
                                                                         <div
-                                                                            className="w-8 h-8 rounded-full bg-hot-pink/20 flex items-center justify-center mr-3">
+                                                                            className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-hot-pink/20 flex items-center justify-center mr-2 md:mr-3">
                                                                             <span
-                                                                                className="text-hot-pink text-sm font-bold">
+                                                                                className="text-hot-pink text-xs md:text-sm font-bold">
                                                                                 {index + 1}
                                                                             </span>
                                                                         </div>
-                                                                        <p className="text-gray-300 text-sm">
+                                                                        <p className="text-gray-300 text-xs md:text-sm">
                                                                             {result}
                                                                         </p>
                                                                     </div>
@@ -507,98 +469,103 @@ export const ProjectDetailModal = ({
                                                         </div>
                                                     </div>
                                                     {/* Gallery - Moved thumbnails back to bottom */}
-                                                    <div>
-                                                        <h2 className="text-2xl font-bold mb-4">
-                                                            {language === 'en'
-                                                                ? 'Project Gallery'
-                                                                : '프로젝트 갤러리'}
-                                                        </h2>
-                                                        <div className="space-y-4">
-                                                            {/* Main image */}
-                                                            <div className="relative">
-                                                                <div
-                                                                    className="aspect-[16/9] overflow-hidden border border-gray-800 rounded-lg"
-                                                                >
-                                                                    <img
-                                                                        src={project?.gallery_url?.[activeImage]}
-                                                                        alt={`${project?.title} gallery image ${activeImage + 1}`}
-                                                                        className="w-full h-full object-cover"
-                                                                    />
+                                                    {project?.gallery_url && project.gallery_url.length > 0 && (
+                                                        <div>
+                                                            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
+                                                                {language === 'en'
+                                                                    ? 'Project Gallery'
+                                                                    : '프로젝트 갤러리'}
+                                                            </h2>
+                                                            <div className="space-y-3 md:space-y-4">
+                                                                {/* Main image */}
+                                                                <div className="relative">
                                                                     <div
-                                                                        className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-60"></div>
-                                                                </div>
-                                                                {/* Navigation arrows */}
-                                                                <button
-                                                                    onClick={handlePrevImage}
-                                                                    className="absolute top-1/2 left-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-hot-pink/80 transition-colors"
-                                                                >
-                                                                    <ChevronLeftIcon size={24}/>
-                                                                </button>
-                                                                <button
-                                                                    onClick={handleNextImage}
-                                                                    className="absolute top-1/2 right-4 transform -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-hot-pink/80 transition-colors"
-                                                                >
-                                                                    <ChevronRightIcon size={24}/>
-                                                                </button>
-                                                                {/* Image counter */}
-                                                                <div
-                                                                    className="absolute bottom-4 right-4 bg-black/70 px-3 py-1 rounded-full font-mono text-sm">
-                                                                    {activeImage + 1} / {project?.gallery_url?.length || 0}
-                                                                </div>
-                                                            </div>
-                                                            {/* Thumbnails at bottom */}
-                                                            <div className="flex flex-wrap gap-2">
-                                                                {project?.gallery_url?.map((image, index) => (
-                                                                    <button
-                                                                        key={index}
-                                                                        onClick={() => setActiveImage(index)}
-                                                                        className={`w-20 h-20 rounded-md overflow-hidden border-2 ${activeImage === index ? 'border-hot-pink' : 'border-gray-800'} transition-colors`}
+                                                                        className="aspect-[16/9] overflow-hidden border border-gray-800 rounded-lg"
                                                                     >
                                                                         <img
-                                                                            src={image}
-                                                                            alt={`Thumbnail ${index + 1}`}
+                                                                            src={project?.gallery_url?.[activeImage]}
+                                                                            alt={`${project?.title?.[language]} gallery image ${activeImage + 1}`}
                                                                             className="w-full h-full object-cover"
                                                                         />
+                                                                        <div
+                                                                            className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-60"></div>
+                                                                    </div>
+                                                                    {/* Navigation arrows */}
+                                                                    <button
+                                                                        onClick={handlePrevImage}
+                                                                        className="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-hot-pink/80 transition-colors"
+                                                                    >
+                                                                        <ChevronLeftIcon size={20} className="md:w-6 md:h-6"/>
                                                                     </button>
-                                                                ))}
+                                                                    <button
+                                                                        onClick={handleNextImage}
+                                                                        className="absolute top-1/2 right-2 md:right-4 transform -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-hot-pink/80 transition-colors"
+                                                                    >
+                                                                        <ChevronRightIcon size={20} className="md:w-6 md:h-6"/>
+                                                                    </button>
+                                                                    {/* Image counter */}
+                                                                    <div
+                                                                        className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 px-2 py-0.5 md:px-3 md:py-1 rounded-full font-mono text-xs md:text-sm">
+                                                                        {activeImage + 1} / {project?.gallery_url?.length || 0}
+                                                                    </div>
+                                                                </div>
+                                                                {/* Thumbnails at bottom */}
+                                                                <div className="flex flex-wrap gap-1.5 md:gap-2">
+                                                                    {project?.gallery_url?.map((image, index) => (
+                                                                        <button
+                                                                            key={index}
+                                                                            onClick={() => setActiveImage(index)}
+                                                                            className={`w-14 h-14 md:w-20 md:h-20 rounded-md overflow-hidden border-2 ${activeImage === index ? 'border-hot-pink' : 'border-gray-800'} transition-colors`}
+                                                                        >
+                                                                            <img
+                                                                                src={image}
+                                                                                alt={`Thumbnail ${index + 1}`}
+                                                                                className="w-full h-full object-cover"
+                                                                            />
+                                                                        </button>
+                                                                    ))}
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    )}
                                                 </div>
                                             )}
                                             {/* Contribution Tab */}
                                             {activeTab === 'contribution' && (
                                                 <div>
-                                                    <h2 className="text-2xl font-bold mb-6 flex items-center">
-                                                        <span className="w-2 h-8 bg-hot-pink mr-3"></span>
+                                                    <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center">
+                                                        <span className="w-1.5 md:w-2 h-6 md:h-8 bg-hot-pink mr-2 md:mr-3"></span>
                                                         {language === 'en'
                                                             ? 'CONTRIBUTION BREAKDOWN'
                                                             : '기여도 분석'}
                                                     </h2>
-                                                    <div className="space-y-6">
-                                                        {project?.contributions?.map((item, index) => (
+                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                                                        {project?.contributions
+                                                            ?.slice()
+                                                            .sort((a, b) => Number(b.percentage || 0) - Number(a.percentage || 0))
+                                                            .map((item, index) => (
                                                             <div
                                                                 key={index}
-                                                                className="bg-gray-900/30 border border-gray-800 rounded-lg p-6"
+                                                                className="bg-gray-900/30 border border-gray-800 rounded-lg p-4 md:p-6"
                                                             >
-                                                                <h3 className="text-xl font-bold mb-3 text-electric-blue">
-                                                                    {item.area}
+                                                                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-electric-blue">
+                                                                    {item.area?.[language]}
                                                                 </h3>
-                                                                <div className="mb-4">
+                                                                <div className="mb-3 md:mb-4">
                                                                     <div
-                                                                        className="flex justify-between items-center mb-2">
-                                                                        <span className="font-mono text-sm">
+                                                                        className="flex justify-between items-center mb-1.5 md:mb-2">
+                                                                        <span className="font-mono text-xs md:text-sm">
                                                                             {language === 'en'
                                                                                 ? 'Contribution Level'
                                                                                 : '기여도'}
                                                                         </span>
                                                                         <span
-                                                                            className="font-mono text-xs text-hot-pink">
+                                                                            className="font-mono text-[10px] md:text-xs text-hot-pink">
                                                                             {item.percentage}%
                                                                         </span>
                                                                     </div>
                                                                     <div
-                                                                        className="h-3 bg-gray-800 rounded-full overflow-hidden">
+                                                                        className="h-2 md:h-3 bg-gray-800 rounded-full overflow-hidden">
                                                                         <div
                                                                             className="h-full bg-gradient-to-r from-electric-blue to-hot-pink rounded-full"
                                                                             style={{
@@ -607,8 +574,8 @@ export const ProjectDetailModal = ({
                                                                         ></div>
                                                                     </div>
                                                                 </div>
-                                                                <p className="text-gray-300">
-                                                                    {item.description}
+                                                                <p className="text-gray-300 text-xs md:text-base">
+                                                                    {item.description?.[language]}
                                                                 </p>
                                                             </div>
                                                         ))}
@@ -618,39 +585,44 @@ export const ProjectDetailModal = ({
                                             {/* Troubleshooting Tab */}
                                             {activeTab === 'troubleshooting' && (
                                                 <div>
-                                                    <h2 className="text-2xl font-bold mb-6 flex items-center">
-                                                        <span className="w-2 h-8 bg-electric-blue mr-3"></span>
+                                                    <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center">
+                                                        <span className="w-1.5 md:w-2 h-6 md:h-8 bg-electric-blue mr-2 md:mr-3"></span>
                                                         {language === 'en'
                                                             ? 'TECHNICAL CHALLENGES & SOLUTIONS'
                                                             : '기술적 과제 및 해결책'}
                                                     </h2>
-                                                    <div
-                                                        className="bg-gray-900/30 border border-gray-800 rounded-lg p-6">
-                                                        <div className="mb-6">
-                                                            <h3 className="text-xl font-bold mb-3 text-hot-pink">
-                                                                {language === 'en' ? 'The Challenge' : '문제'}
-                                                            </h3>
-                                                            <p className="text-gray-300">
-                                                                {project?.challenge}
-                                                            </p>
-                                                        </div>
-                                                        <div className="mb-6">
-                                                            <h3 className="text-xl font-bold mb-3 text-electric-blue">
-                                                                {language === 'en' ? 'The Solution' : '해결책'}
-                                                            </h3>
-                                                            <p className="text-gray-300">
-                                                                {project?.solution}
-                                                            </p>
-                                                        </div>
-                                                        <div
-                                                            className="p-5 bg-electric-blue/10 border border-electric-blue/30 rounded-lg">
-                                                            <h4 className="text-lg font-bold mb-2 text-electric-blue">
-                                                                {language === 'en' ? 'Impact' : '영향'}
-                                                            </h4>
-                                                            <p className="text-gray-300">
-                                                                {project?.solution}
-                                                            </p>
-                                                        </div>
+                                                    <div className="space-y-4 md:space-y-6">
+                                                        {project?.troubles?.map((trouble, index) => (
+                                                            <div
+                                                                key={index}
+                                                                className="bg-gray-900/30 border border-gray-800 rounded-lg p-4 md:p-6">
+                                                                <div className="mb-4 md:mb-6">
+                                                                    <h4 className="text-base md:text-lg font-bold mb-2 md:mb-3 text-hot-pink">
+                                                                        {language === 'en' ? 'The Challenge' : '문제'}
+                                                                    </h4>
+                                                                    <p className="text-gray-300 text-sm md:text-base">
+                                                                        {trouble.trouble_cont?.[language]}
+                                                                    </p>
+                                                                </div>
+                                                                <div className="mb-4 md:mb-6">
+                                                                    <h4 className="text-base md:text-lg font-bold mb-2 md:mb-3 text-electric-blue">
+                                                                        {language === 'en' ? 'The Solution' : '해결책'}
+                                                                    </h4>
+                                                                    <p className="text-gray-300 text-sm md:text-base">
+                                                                        {trouble.solution_cont?.[language]}
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    className="p-3 md:p-5 bg-electric-blue/10 border border-electric-blue/30 rounded-lg">
+                                                                    <h4 className="text-base md:text-lg font-bold mb-1.5 md:mb-2 text-electric-blue">
+                                                                        {language === 'en' ? 'Impact' : '영향'}
+                                                                    </h4>
+                                                                    <p className="text-gray-300 text-sm md:text-base">
+                                                                        {trouble.impact?.[language]}
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        ))}
                                                     </div>
                                                 </div>
                                             )}

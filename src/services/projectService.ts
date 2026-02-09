@@ -1,8 +1,8 @@
 import { supabase, type Project } from '../lib/supabase'
 
 export class ProjectService {
-  // 언어별 프로젝트 목록 가져오기
-  static async getProjectsByLanguage(language: 'en' | 'ko'): Promise<Project[]> {
+  // 프로젝트 목록 가져오기
+  static async getProjectsByLanguage(_language: 'en' | 'ko'): Promise<Project[]> {
     try {
       const { data, error } = await supabase
         .from('project')
@@ -12,7 +12,6 @@ export class ProjectService {
           technologies:technology(*),
           contributions:contribution(*)
         `)
-        .eq('lang', language)
         .order('start_date', { ascending: false })
 
       if (error) {
@@ -28,7 +27,7 @@ export class ProjectService {
   }
 
   // 특정 프로젝트 가져오기
-  static async getProjectById(id: string, language: 'en' | 'ko'): Promise<Project | null> {
+  static async getProjectById(id: string, _language: 'en' | 'ko'): Promise<Project | null> {
     try {
       const { data, error } = await supabase
         .from('project')
@@ -36,10 +35,10 @@ export class ProjectService {
           *,
           links:link(*),
           technologies:technology(*),
-          contributions:contribution(*)
+          contributions:contribution(*),
+          troubles:trouble(*)
         `)
         .eq('project_id', id)
-        .eq('lang', language)
         .single()
 
       if (error) {
@@ -83,8 +82,8 @@ export class ProjectService {
     }
   }
 
-  // 카테고리별 프로젝트 가져오기
-  static async getProjectsByCategory(category: string, language: 'en' | 'ko'): Promise<Project[]> {
+  // 카테고리별 프로젝트 가져오기 (JSONB 필드에서 검색)
+  static async getProjectsByCategory(category: string, _language: 'en' | 'ko'): Promise<Project[]> {
     try {
       const { data, error } = await supabase
         .from('project')
@@ -94,8 +93,7 @@ export class ProjectService {
           technologies:technology(*),
           contributions:contribution(*)
         `)
-        .eq('category', category)
-        .eq('lang', language)
+        .or(`category->ko.eq.${category},category->en.eq.${category}`)
         .order('created_at', { ascending: false })
 
       if (error) {
@@ -110,8 +108,8 @@ export class ProjectService {
     }
   }
 
-  // 프로젝트 검색
-  static async searchProjects(query: string, language: 'en' | 'ko'): Promise<Project[]> {
+  // 프로젝트 검색 (JSONB 필드에서 검색)
+  static async searchProjects(query: string, _language: 'en' | 'ko'): Promise<Project[]> {
     try {
       const { data, error } = await supabase
         .from('project')
@@ -121,8 +119,7 @@ export class ProjectService {
           technologies:technology(*),
           contributions:contribution(*)
         `)
-        .eq('lang', language)
-        .or(`title.ilike.%${query}%, description.ilike.%${query}%, tag.cs.{${query}}`)
+        .or(`title->ko.ilike.%${query}%,title->en.ilike.%${query}%,description->ko.ilike.%${query}%,description->en.ilike.%${query}%`)
         .order('created_at', { ascending: false })
 
       if (error) {

@@ -43,14 +43,14 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
     return (
         <section
             id="projects"
-            className={`py-20 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            className={`py-12 md:py-20 ${language === 'ko' ? 'font-ko' : 'font-en'}`}
         >
             <div className="container mx-auto px-4">
-                <div className="mb-12 text-center">
+                <div className="mb-8 md:mb-12 text-center">
                     <GlitchText
                         key={language}
                         text={t('projects.title')}
-                        className={`text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
+                        className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
                     />
                     <div className={`w-24 h-1 mx-auto bg-hot-pink ${language === 'ko' ? 'w-28' : 'w-40'}`}></div>
                 </div>
@@ -61,7 +61,7 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                     </div>
                 )}
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                     {projects.map((project, index) => (
                         <div
                             key={project.project_id}
@@ -71,27 +71,27 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                             onClick={() => onOpenModal(project.project_id)}
                         >
                             <div
-                                className={`relative h-64 overflow-hidden ${activeProject === project.project_id && isGlitching ? 'animate-glitch' : ''}`}
+                                className={`relative h-32 md:h-64 overflow-hidden ${activeProject === project.project_id && isGlitching ? 'animate-glitch' : ''}`}
                             >
                                 <img
                                     src={project.image || ""}
-                                    alt={project.title}
+                                    alt={project.title?.[language]}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
                                 <div
                                     className={`absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70 ${activeProject === project.project_id ? 'chromatic-aberration' : ''}`}
                                 ></div>
                             </div>
-                            <div className="p-6 bg-gray-900 relative flex-1">
-                                <div className="text-xs text-electric-blue mb-2">
-                                    {project.category}
+                            <div className="p-4 md:p-6 bg-gray-900 relative flex-1">
+                                <div className="text-[10px] md:text-xs text-electric-blue mb-2">
+                                    {project.category?.[language]}
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                                <p className="text-gray-400 text-sm flex-1">{project.description}</p>
-                                <div className="mt-4 flex justify-between items-center">
-                                    <span className="text-xs text-hot-pink">{t('projects.project')}.{index + 1}</span>
+                                <h3 className="text-lg md:text-xl font-bold mb-2">{project.title?.[language]}</h3>
+                                <p className="text-gray-400 text-xs md:text-sm flex-1 line-clamp-2 md:line-clamp-none">{project.description?.[language]}</p>
+                                <div className="mt-3 md:mt-4 flex justify-between items-center">
+                                    <span className="text-[10px] md:text-xs text-hot-pink">{t('projects.project')}.{index + 1}</span>
                                     <span
-                                        className="text-xs text-white font-mono">{t('projects.viewDetails')} &gt;</span>
+                                        className="text-[10px] md:text-xs text-white font-mono">{t('projects.viewDetails')} &gt;</span>
                                 </div>
                             </div>
                             {activeProject === project.project_id && (

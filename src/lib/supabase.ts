@@ -19,7 +19,7 @@ export interface Technology {
     name: string | null;
     type: string | null;
     icon: string | null;
-    description: string | null;
+    description: LocalizedText | null;
     project_id: string;
     created_at: string;
     edited_at: string | null;
@@ -27,9 +27,9 @@ export interface Technology {
 
 export interface Contribution {
     contribution_id: string;
-    area: string | null;
+    area: LocalizedText | null;
     percentage: string | null;
-    description: string | null;
+    description: LocalizedText | null;
     project_id: string;
     created_at: string;
     edited_at: string | null;
@@ -38,31 +38,40 @@ export interface Contribution {
 export interface Trouble {
     trouble_id: string;
     project_id: string;
-    title: string | null;
-    trouble_cont: string | null;
-    solution_cont: string | null;
+    trouble_cont: LocalizedText | null;
+    solution_cont: LocalizedText | null;
+    impact: LocalizedText | null;
     created_at: string;
     edited_at: string | null;
 }
 
+export interface LocalizedText {
+    ko: string;
+    en: string;
+}
+
+export interface LocalizedArray {
+    ko: string[];
+    en: string[];
+}
+
 export interface Project {
     project_id: string;
-    lang: string;
-    title: string;
-    subtitle: string;
-    category: string | null;
-    client: string | null;
-    role: string | null;
+    title: LocalizedText;
+    subtitle: LocalizedText;
+    category: LocalizedText | null;
+    client: LocalizedText | null;
+    role: LocalizedText | null;
     start_date: string | null;
     end_date: string | null;
-    status: string | null;
-    description: string | null;
-    challenge: string | null;
-    solution: string | null;
+    status: LocalizedText | null;
+    description: LocalizedText | null;
+    challenge: LocalizedText | null;
+    solution: LocalizedText | null;
     image: string | null;
-    tag: string[] | null;
+    tag: LocalizedArray | null;
     gallery_url: string[] | null;
-    result: string[] | null;
+    result: LocalizedArray | null;
     created_at: string;
     edited_at: string | null;
     links?: ProjectLink[];

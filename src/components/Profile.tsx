@@ -134,35 +134,35 @@ export const Profile = () => {
     return (
         <section
             id="profile"
-            className={`py-20 relative ${language === 'ko' ? 'font-ko' : 'font-en'}`}
+            className={`py-12 md:py-20 relative ${language === 'ko' ? 'font-ko' : 'font-en'}`}
         >
             {/* Background grid effect */}
             <div className="absolute inset-0 z-0">
                 <div className="h-full w-full bg-[radial-gradient(rgba(var(--color-electric-blue),0.1)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
             </div>
             <div className="container mx-auto px-4 relative z-10">
-                <div className="mb-12 text-center">
+                <div className="mb-8 md:mb-12 text-center">
                     <GlitchText
                         key={language}
                         text={t('profile.title')}
-                        className={`text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
+                        className={`text-2xl sm:text-3xl md:text-4xl font-bold mb-4 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}
                         intensity="medium"
                     />
                     <div className={`w-24 h-1 mx-auto bg-hot-pink ${language === 'ko' ? 'w-14' : 'w-64'}`}></div>
-                    <p className="mt-6 max-w-2xl mx-auto text-gray-400">
+                    <p className="mt-4 md:mt-6 max-w-2xl mx-auto text-gray-400 text-sm md:text-base px-2">
                         {t('profile.description')}
                     </p>
                 </div>
                 {/* Profile card */}
                 <div className="mx-auto bg-gray-900/70 border border-gray-800 backdrop-blur-sm rounded-lg overflow-hidden">
-                    <div className="p-6 md:p-8">
+                    <div className="p-4 md:p-8">
                         {/* Stats display */}
                         <div className="flex flex-col md:flex-row gap-8">
-                            {/* Left column - Bio */}
-                            <div className="md:w-1/3">
-                                <div className="relative mb-6 overflow-hidden rounded-md">
+                            {/* Left column - Bio (hidden on mobile) */}
+                            <div className="hidden md:block md:w-1/3">
+                                <div className="relative mb-4 md:mb-6 overflow-hidden rounded-md">
                                     <div className="aspect-square bg-gradient-to-br from-electric-blue/20 to-hot-pink/20 flex items-center justify-center">
-                                        <div className="text-6xl font-bold text-center opacity-30">
+                                        <div className="text-4xl md:text-6xl font-bold text-center opacity-30">
                                             {'{'}
                                             <span className="text-hot-pink">DEV</span>
                                             {'}'}
@@ -171,7 +171,7 @@ export const Profile = () => {
                                         <div className="absolute inset-0 bg-scanline pointer-events-none"></div>
                                     </div>
                                 </div>
-                                <div className="terminal-output font-mono text-xs text-electric-blue mb-4 p-3 bg-black/50 border border-gray-800 rounded">
+                                <div className="terminal-output font-mono text-[10px] md:text-xs text-electric-blue mb-4 p-2 md:p-3 bg-black/50 border border-gray-800 rounded">
                                     <div>{`> ${t('profile.codeSnippet.line1')}`}</div>
                                     <div>{`> ${t('profile.codeSnippet.line2')}`}</div>
                                     <div>{`> ${t('profile.codeSnippet.line3')}`}</div>
@@ -191,13 +191,13 @@ export const Profile = () => {
                                 </div>
                             </div>
                             {/* Right column - Skills */}
-                            <div className="md:w-2/3">
+                            <div className="w-full md:w-2/3">
                                 {/* Category tabs */}
-                                <div className="flex mb-6 border-b border-gray-800">
+                                <div className="flex mb-4 md:mb-6 border-b border-gray-800 overflow-x-auto">
                                     {categories.map((category) => (
                                         <button
                                             key={category.id}
-                                            className={`px-4 py-2 font-mono text-sm transition-colors duration-300 relative ${activeCategory === category.id ? 'text-hot-pink border-b-2 border-hot-pink' : 'text-gray-400 hover:text-electric-blue'}`}
+                                            className={`px-3 md:px-4 py-2 font-mono text-xs md:text-sm transition-colors duration-300 relative whitespace-nowrap ${activeCategory === category.id ? 'text-hot-pink border-b-2 border-hot-pink' : 'text-gray-400 hover:text-electric-blue'}`}
                                             onClick={() => setActiveCategory(category.id)}
                                         >
                                             {category.name}
@@ -217,8 +217,8 @@ export const Profile = () => {
                                             className={`mb-4 ${glitchSkill === index ? 'animate-glitch' : ''}`}
                                         >
                                             <div className="flex justify-between items-center mb-1">
-                                                <span className="font-mono text-sm">{skill.name}</span>
-                                                <span className="font-mono text-xs text-gray-500">
+                                                <span className="font-mono text-xs md:text-sm">{skill.name}</span>
+                                                <span className="font-mono text-[10px] md:text-xs text-gray-500">
                           {skill.level}%
                         </span>
                                             </div>
@@ -253,17 +253,17 @@ export const Profile = () => {
                         </div>
                     </div>
                     {/* Bottom stats bar */}
-                    <div className="px-6 py-4 bg-black/30 border-t border-gray-800 flex flex-wrap justify-between items-center gap-4">
+                    <div className="px-4 md:px-6 py-3 md:py-4 bg-black/30 border-t border-gray-800 flex flex-wrap justify-between items-center gap-2 md:gap-4">
                         <div className="flex items-center">
                             <div className="w-2 h-2 bg-hot-pink rounded-full mr-2 animate-pulse"></div>
-                            <span className="font-mono text-xs text-gray-400">
+                            <span className="font-mono text-[10px] md:text-xs text-gray-400">
                 {t('profile.status')}:
                 <span className="text-electric-blue ml-1">
                   {t('profile.statusValue')}
                 </span>
               </span>
                         </div>
-                        <div className="font-mono text-xs text-gray-500">
+                        <div className="font-mono text-[10px] md:text-xs text-gray-500">
                             ID: CYB-DEV-
                             {Math.floor(Math.random() * 10000)
                                 .toString()
