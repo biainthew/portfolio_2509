@@ -1,206 +1,199 @@
-# Cyber Portfolio
+# Cyberpunk Portfolio
 
-A futuristic, cyberpunk-themed portfolio website built with React, TypeScript, and Tailwind CSS. Features bilingual support (English/Korean), animated UI components, and a terminal-like interface.
+> A cyberpunk-themed developer portfolio website — from design to development
 
-## ✨ Features
+**English** | [한국어](./README_KO.md)
 
-- **🎨 Cyberpunk Design**: Neon colors, glitch effects, and futuristic UI components
-- **🌐 Bilingual Support**: Dynamic language switching between English and Korean
-- **⚡ Interactive Terminal**: Animated typing effect with realistic cursor blinking
-- **🎯 Glitch Effects**: Random glitch animations for enhanced visual appeal
-- **📱 Responsive Design**: Optimized for all device sizes
-- **🎭 Styled Components**: Custom animations and visual effects
-- **🗄️ Database Integration**: Dynamic content management with Supabase
-- **🔒 Secure Data**: Row Level Security (RLS) policies for data protection
+## Introduction
 
-## 🛠️ Tech Stack
+A personal portfolio website with a cyberpunk aesthetic. Featuring glitch effects, scanline overlays, neon colors, and retro-futuristic visual elements to showcase projects, skills, and profile.
 
-- **Frontend**: React 19+ with TypeScript
-- **Backend**: Supabase (PostgreSQL database)
-- **Styling**: Tailwind CSS v3 with custom animations
-- **Build Tool**: Vite
-- **Fonts**: Share Tech Mono, Styrene A, Pretendard
-- **Routing**: React Router DOM
+## Preview
 
-## 🚀 Quick Start
+### Key Sections
+
+| Section | Description |
+|---------|-------------|
+| Hero | Main intro with typewriter animation |
+| Terminal | Terminal-style profile introduction |
+| Skill Matrix | Categorized tech stack with progress bars |
+| Projects | Project card grid gallery |
+| Project Detail | Tab-based project detail modal |
+
+## Tech Stack
+
+### Frontend
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| React | 19.1.1 | UI framework |
+| TypeScript | 5.8.3 | Type safety |
+| Vite | 7.1.2 | Build tool & dev server |
+| Tailwind CSS | 3.4.17 | Utility-first styling |
+| React Router DOM | 7.8.2 | Client-side routing |
+| styled-jsx | 5.1.7 | Scoped CSS-in-JS |
+
+### Backend & Database
+
+| Technology | Purpose |
+|------------|---------|
+| Supabase | PostgreSQL-based BaaS (Backend as a Service) |
+
+### UI & Animation
+
+| Technology | Purpose |
+|------------|---------|
+| lucide-react | SVG icons |
+| react-icons | Additional icon sets (GitHub, etc.) |
+| react-type-animation | Typewriter animation effect |
+
+## Features
+
+- **Cyberpunk UI** — Glitch text, scanlines, chromatic aberration, and retro-futuristic design
+- **Bilingual Support** — Korean/English toggle (both UI text and database content)
+- **Project Gallery** — Card-based project listing with detail modal
+- **Project Details** — Tabbed view with Overview, Contribution, and Troubleshooting
+- **Skill Matrix** — Backend / Frontend / Design categorized skill display
+- **Responsive Design** — Mobile-first, adapts from mobile to desktop
+- **Terminal Intro** — Terminal-style profile with typing animation
+
+## Project Structure
+
+```
+portfolio_2509/
+├── src/
+│   ├── components/          # React UI components
+│   │   ├── Main.tsx         # Main layout orchestrator
+│   │   ├── Header.tsx       # Fixed navigation header
+│   │   ├── Hero.tsx         # Landing intro section
+│   │   ├── Terminal.tsx     # Terminal-style introduction
+│   │   ├── Profile.tsx      # Skill matrix display
+│   │   ├── Projects.tsx     # Project grid gallery
+│   │   ├── ProjectDetailModal.tsx  # Project detail modal
+│   │   ├── Footer.tsx       # Contact & footer
+│   │   ├── GlitchText.tsx   # Glitch text effect
+│   │   ├── LanguageToggle.tsx    # Language switcher
+│   │   ├── ScanlineOverlay.tsx   # Scanline overlay effect
+│   │   └── 404.tsx          # Not found page
+│   ├── contexts/
+│   │   └── LanguageContext.tsx    # i18n context with translations
+│   ├── services/
+│   │   └── projectService.ts     # Supabase data fetching service
+│   ├── lib/
+│   │   └── supabase.ts      # Supabase client & TypeScript interfaces
+│   ├── types/
+│   │   └── language.ts      # Language type definitions
+│   ├── App.tsx              # Root component
+│   ├── index.tsx            # Entry point
+│   └── index.css            # Global styles & fonts
+├── index.html               # HTML entry
+├── vite.config.ts           # Vite configuration
+├── tailwind.config.js       # Tailwind theme customization
+├── tsconfig.json            # TypeScript configuration
+├── postcss.config.js        # PostCSS configuration
+└── package.json             # Dependencies & scripts
+```
+
+## Database Schema
+
+Built on Supabase (PostgreSQL), using a `LocalizedText` JSONB field pattern for bilingual content.
+
+| Table | Description |
+|-------|-------------|
+| `project` | Core project info (title, description, category, status, etc.) |
+| `link` | Project external links (GitHub, live demo, docs) |
+| `technology` | Tech stack per project |
+| `contribution` | Contribution areas with percentages |
+| `trouble` | Technical challenges and solutions |
+
+```typescript
+// Bilingual field example
+interface LocalizedText {
+  ko: string;
+  en: string;
+}
+```
+
+## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
+- Supabase project (for database)
 
 ### Installation
 
-1. Clone the repository
 ```bash
-git clone <repository-url>
-cd untitled
-```
+# Clone the repository
+git clone https://github.com/your-username/portfolio_2509.git
+cd portfolio_2509
 
-2. Install dependencies
-```bash
+# Install dependencies
 npm install
 ```
 
-3. Set up environment variables
-```bash
-# Create .env file in root directory
-cp .env.example .env
+### Environment Variables
 
-# Add your Supabase credentials
-VITE_SUPABASE_URL=your_supabase_url
+Create a `.env` file in the project root:
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-4. Start the development server
+### Development Server
+
 ```bash
 npm run dev
 ```
 
-5. Open your browser and navigate to `http://localhost:5173`
+Open `http://localhost:5173` in your browser.
 
-## 📝 Available Scripts
+### Build
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
+```bash
+# Production build
+npm run build
 
-## 🎨 Components
-
-### Core Components
-- **Header**: Navigation with language toggle
-- **Hero**: Main landing section with glitch text effects
-- **Terminal**: Interactive terminal with typing animation
-- **Projects**: Project showcase with hover effects and database integration
-- **ProjectDetailModal**: Full project details with gallery and technical information
-- **Footer**: Contact information and links
-
-### UI Components
-- **GlitchText**: Animated text with cyberpunk glitch effect
-- **ScanlineOverlay**: Retro CRT scanline effect
-- **LanguageToggle**: Bilingual switcher with smooth transitions
-
-## 🌍 Internationalization
-
-The app supports English and Korean languages with:
-- Dynamic content switching
-- Language-specific fonts
-- Smooth transition animations
-- Persistent language preference
-
-## 🎭 Animations & Effects
-
-- **Glitch Animation**: Random text and visual glitches
-- **Typing Effect**: Terminal-like character-by-character text rendering
-- **Chromatic Aberration**: RGB shift effects on hover
-- **Neon Glow**: Electric blue and hot pink accent colors
-- **Scanline Effect**: Retro CRT monitor overlay
-
-## 🗄️ Database Integration
-
-This project uses Supabase as the backend database to dynamically manage project content.
-
-### Database Schema
-
-```sql
--- Projects table
-project (
-  project_id: UUID (Primary Key)
-  lang: VARCHAR ('en' | 'ko')
-  title: VARCHAR
-  subtitle: VARCHAR
-  category: VARCHAR
-  client: VARCHAR
-  role: VARCHAR
-  start_date: VARCHAR
-  end_date: VARCHAR
-  status: VARCHAR
-  description: TEXT
-  challenge: TEXT
-  solution: TEXT
-  image: VARCHAR (URL)
-  tag: TEXT[] (Array)
-  gallery_url: TEXT[] (Array)
-  result: TEXT[] (Array)
-  created_at: TIMESTAMP
-  edited_at: TIMESTAMP
-)
-
--- Related tables with foreign key relationships
-link (link_id, type, url, project_id)
-technology (technology_id, name, type, icon, description, project_id)  
-contribution (contribution_id, area, percentage, description, project_id)
+# Preview the build
+npm run preview
 ```
 
-### Data Service Layer
+## Scripts
 
-- **ProjectService**: Centralized service for all project-related database operations
-- **Language-specific queries**: Automatically filters content by selected language
-- **Normalized data structure**: Separate tables for links, technologies, and contributions
-- **Error handling**: Comprehensive error catching and logging
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | TypeScript compile + production build |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
 
-### Key Features
+## Customization
 
-- **Dynamic Content**: Project data is fetched from Supabase in real-time
-- **Bilingual Support**: Content automatically switches based on language selection
-- **Detailed Project Views**: Rich project information including galleries, tech stacks, and contributions
-- **Secure Access**: Row Level Security (RLS) policies protect data integrity
+### Color Theme
 
-## 📁 Project Structure
+Modify the cyberpunk color palette in `tailwind.config.js`:
 
-```
-src/
-├── components/          # UI Components
-│   ├── Header.tsx
-│   ├── Hero.tsx
-│   ├── Terminal.tsx
-│   ├── Projects.tsx
-│   ├── ProjectDetailModal.tsx
-│   ├── Footer.tsx
-│   ├── GlitchText.tsx
-│   ├── ScanlineOverlay.tsx
-│   └── LanguageToggle.tsx
-├── contexts/           # React Contexts
-│   └── LanguageContext.tsx
-├── lib/                # External Services
-│   └── supabase.ts     # Supabase client & types
-├── services/           # Business Logic
-│   └── projectService.ts # Project CRUD operations
-├── types/              # TypeScript Types
-│   └── language.ts
-├── App.tsx             # Main App Component
-├── AppRouter.tsx       # Router Configuration
-└── index.css          # Global Styles & Tailwind
+```javascript
+colors: {
+  'electric-blue': '#00E6FF',
+  'hot-pink': '#FF0080',
+}
 ```
 
-## 🎨 Color Scheme
+### Fonts
 
-- **Electric Blue**: `rgb(0, 230, 255)` - Primary accent
-- **Hot Pink**: `rgb(255, 0, 128)` - Secondary accent  
-- **Background**: Black with gradient overlays
-- **Text**: Gray-200 for readability
+Different fonts are applied based on the selected language:
 
-## 📈 Recent Updates
+- **English**: Styrene A, Share Tech Mono
+- **Korean**: Orbit, Galmuri
+- **Code**: D2Coding
 
-### 2025-09-16: Supabase Database Integration
-- ✅ **Complete Database Migration**: Moved from static JSON to Supabase PostgreSQL
-- ✅ **Normalized Schema**: Separated projects, links, technologies, and contributions
-- ✅ **Type Safety**: Full TypeScript integration with Supabase types
-- ✅ **Dynamic Content**: Real-time project data fetching
-- ✅ **Modal Enhancement**: Rich project detail modals with galleries
-- ✅ **Timeline Fields**: Updated from single `timeline` to `start_date` + `end_date` fields
-- ✅ **RLS Security**: Implemented Row Level Security policies for data protection
-- ✅ **Error Handling**: Comprehensive error management and user feedback
-- ✅ **Code Cleanup**: Removed static fallback data and debug logging
+## License
 
-### Technical Improvements
-- **Database Structure**: Normalized 4-table schema for scalability
-- **Service Layer**: Centralized `ProjectService` for all database operations  
-- **Language Support**: Automatic language filtering for bilingual content
-- **Performance**: Optimized queries with proper indexing and ordering
-- **Security**: Public read access with secure RLS policies
+This project was built for personal portfolio purposes.
 
-## 📄 License
+## Contact
 
-This project is open source and available under the [MIT License](LICENSE).
+- Email: lba0507@gmail.com
