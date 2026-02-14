@@ -141,7 +141,7 @@ export const Profile = () => {
                 <div className="h-full w-full bg-[radial-gradient(rgba(var(--color-electric-blue),0.1)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
             </div>
             <div className="container mx-auto px-4 relative z-10">
-                <div className="mb-8 md:mb-12 text-center">
+                <div className="mb-4 md:mb-8 text-center">
                     <GlitchText
                         key={language}
                         text={t('profile.title')}

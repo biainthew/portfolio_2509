@@ -47,6 +47,9 @@ const translations = {
         'projects.title': 'PROJECTS',
         'projects.viewDetails': 'VIEW_DETAILS',
         'projects.project': 'PROJECT',
+        'projects.tab.backend': 'BACKEND',
+        'projects.tab.frontend': 'FRONTEND',
+        'projects.tab.personal': 'PERSONAL',
         'projects.backToProjects': 'BACK TO HOME',
         // Project Detail
         'projectDetail.overview': 'PROJECT OVERVIEW',
@@ -115,6 +118,9 @@ const translations = {
         'projects.title': '프로젝트',
         'projects.viewDetails': '상세 보기',
         'projects.project': '프로젝트',
+        'projects.tab.backend': '백엔드',
+        'projects.tab.frontend': '프론트엔드',
+        'projects.tab.personal': '개인 프로젝트',
         'projects.backToProjects': '돌아가기',
         // Project Detail
         'projectDetail.overview': '프로젝트 개요',

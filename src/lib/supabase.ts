@@ -72,6 +72,7 @@ export interface Project {
     tag: LocalizedArray | null;
     gallery_url: string[] | null;
     result: LocalizedArray | null;
+    project_type: 'backend' | 'frontend' | 'personal';
     created_at: string;
     edited_at: string | null;
     links?: ProjectLink[];

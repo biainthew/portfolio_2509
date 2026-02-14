@@ -13,7 +13,18 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
     const [isGlitching, setIsGlitching] = useState(false)
     const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(false)
+    const [activeTab, setActiveTab] = useState<string>('backend')
     const {language, t} = useLanguage()
+
+    const projectTabs = [
+        { id: 'backend', name: t('projects.tab.backend') },
+        { id: 'frontend', name: t('projects.tab.frontend') },
+        { id: 'personal', name: t('projects.tab.personal') },
+    ]
+
+    const filteredProjects = projects.filter(
+        (project) => project.project_type === activeTab,
+    )
     
     // Fetch projects from Supabase
     useEffect(() => {
@@ -54,7 +65,23 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                     />
                     <div className={`w-24 h-1 mx-auto bg-hot-pink ${language === 'ko' ? 'w-28' : 'w-40'}`}></div>
                 </div>
-                
+
+                {/* Project type tabs */}
+                <div className="flex justify-center mb-6 md:mb-8 border-b border-gray-800">
+                    {projectTabs.map((tab) => (
+                        <button
+                            key={tab.id}
+                            className={`px-4 md:px-6 py-2 font-mono text-xs md:text-sm transition-colors duration-300 relative whitespace-nowrap ${activeTab === tab.id ? 'text-hot-pink border-b-2 border-hot-pink' : 'text-gray-400 hover:text-electric-blue'}`}
+                            onClick={() => setActiveTab(tab.id)}
+                        >
+                            {tab.name}
+                            {activeTab === tab.id && (
+                                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-hot-pink to-electric-blue"></span>
+                            )}
+                        </button>
+                    ))}
+                </div>
+
                 {loading && (
                     <div className="text-center py-8">
                         <div className="text-electric-blue">Loading projects...</div>
@@ -62,7 +89,7 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                 )}
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
-                    {projects.map((project, index) => (
+                    {filteredProjects.map((project, index) => (
                         <div
                             key={project.project_id}
                             className="group relative overflow-hidden border border-gray-800 rounded-md flex flex-col cursor-pointer"
