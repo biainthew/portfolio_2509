@@ -10,7 +10,8 @@ export class ProjectService {
           *,
           links:link(*),
           technologies:technology(*),
-          contributions:contribution(*)
+          contributions:contribution(*),
+          highlights:highlight(*)
         `)
         .order('start_date', { ascending: false })
 
@@ -36,7 +37,8 @@ export class ProjectService {
           links:link(*),
           technologies:technology(*),
           contributions:contribution(*),
-          troubles:trouble(*)
+          troubles:trouble(*),
+          highlights:highlight(*)
         `)
         .eq('project_id', id)
         .single()
@@ -66,7 +68,8 @@ export class ProjectService {
           *,
           links:link(*),
           technologies:technology(*),
-          contributions:contribution(*)
+          contributions:contribution(*),
+          highlights:highlight(*)
         `)
         .order('created_at', { ascending: false })
 
@@ -91,7 +94,8 @@ export class ProjectService {
           *,
           links:link(*),
           technologies:technology(*),
-          contributions:contribution(*)
+          contributions:contribution(*),
+          highlights:highlight(*)
         `)
         .or(`category->ko.eq.${category},category->en.eq.${category}`)
         .order('created_at', { ascending: false })
@@ -117,7 +121,8 @@ export class ProjectService {
           *,
           links:link(*),
           technologies:technology(*),
-          contributions:contribution(*)
+          contributions:contribution(*),
+          highlights:highlight(*)
         `)
         .or(`title->ko.ilike.%${query}%,title->en.ilike.%${query}%,description->ko.ilike.%${query}%,description->en.ilike.%${query}%`)
         .order('created_at', { ascending: false })

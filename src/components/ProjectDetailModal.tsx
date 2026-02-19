@@ -6,11 +6,21 @@ import {
     ExternalLinkIcon,
     CodeIcon,
     InfoIcon,
+    UserIcon,
+    WrenchIcon,
+    CheckCircleIcon,
 } from 'lucide-react'
 import { SiGithub } from "react-icons/si";
 import {useLanguage} from '../contexts/LanguageContext'
 import {ProjectService} from '../services/projectService'
 import type {Project} from '../lib/supabase'
+
+const formatYearMonth = (date: string | null): string => {
+    if (!date) return ''
+    // Handle ISO timestamps like "2024-09-01T00:00:00.000Z" and simple dates like "2024-09-01"
+    const match = date.match(/^(\d{4})-(\d{2})/)
+    return match ? `${match[1]}-${match[2]}` : date
+}
 
 interface ProjectDetailModalProps {
     isOpen: boolean
@@ -30,9 +40,9 @@ export const ProjectDetailModal = ({
     const [project, setProject] = useState<Project | null>(null)
     const [error, setError] = useState<string | null>(null)
     const [activeTab, setActiveTab] = useState<
-        'overview' | 'contribution' | 'troubleshooting'
+        'overview' | 'tasks' | 'troubleshooting'
     >('overview')
-    // Fetch project data when modal opens
+
     useEffect(() => {
         if (isOpen && projectId) {
             setActiveImage(0)
@@ -58,23 +68,20 @@ export const ProjectDetailModal = ({
         }
     }, [isOpen, projectId, language])
 
-    // Disable body scroll when modal is open
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden'
         } else {
             document.body.style.overflow = 'unset'
         }
-
-        // Cleanup function to restore scroll when component unmounts
         return () => {
             document.body.style.overflow = 'unset'
         }
     }, [isOpen])
+
     const handleNextImage = () => {
         if (project?.gallery_url) {
             const length = project?.gallery_url?.length ?? 0;
-
             if (length > 0) {
                 setActiveImage((prev) => (prev + 1) % length);
             }
@@ -84,19 +91,14 @@ export const ProjectDetailModal = ({
     const handlePrevImage = () => {
         if (project?.gallery_url) {
             const length = project?.gallery_url?.length ?? 0;
-
             if (length > 0) {
-                setActiveImage(
-                    (prev) =>
-                        (prev - 1 + length) % length,
-                )
+                setActiveImage((prev) => (prev - 1 + length) % length)
             }
         }
     }
 
     if (!isOpen) return null
 
-    // 에러 상태 표시
     if (error) {
         return (
             <div className="fixed inset-0 z-[99999] overflow-y-auto">
@@ -117,8 +119,17 @@ export const ProjectDetailModal = ({
         )
     }
 
-    // 프로젝트가 없거나 로딩 중일 때는 기존 로딩 UI 표시
     if (!project && !isLoading && !error) return null
+
+    // DEBUG: 날짜 데이터 확인용 (확인 후 삭제)
+    console.log('DEBUG start_date:', project?.start_date, typeof project?.start_date)
+    console.log('DEBUG end_date:', project?.end_date, typeof project?.end_date)
+    console.log('DEBUG formatYearMonth result:', formatYearMonth(project?.start_date ?? null), '~', formatYearMonth(project?.end_date ?? null))
+
+    const sortedHighlights = project?.highlights
+        ?.slice()
+        .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0)) ?? []
+
     return (
         <div className="fixed inset-0 z-[99999] overflow-y-auto">
             {/* Backdrop */}
@@ -142,21 +153,21 @@ export const ProjectDetailModal = ({
                         {/* Fixed Project Links Sidebar */}
                         {project?.links && project.links.length > 0 && !isLoading && (
                             <div
-                                className="fixed left-0 top-1/2 transform -translate-y-1/2 z-40 flex flex-col gap-4 pl-4 md:pl-8">
+                                className="hidden md:flex fixed left-0 top-1/2 transform -translate-y-1/2 z-40 flex-col gap-4 pl-4 md:pl-8">
                                 <div
-                                    className="bg-black/80 backdrop-blur-sm border border-gray-800 rounded-lg p-3 shadow-lg">
+                                    className="bg-black/80 backdrop-blur-sm border border-gray-800 rounded-lg p-3 shadow-lg flex flex-col gap-4">
                                     {project?.links?.find(link => link.type === 'github') && (
                                         <a
                                             href={project.links.find(link => link.type === 'github')!.url!}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center justify-center w-12 h-12 bg-hot-pink hover:bg-hot-pink/80 rounded-full mb-4 group relative"
+                                            className="flex items-center justify-center w-12 h-12 bg-hot-pink hover:bg-hot-pink/80 rounded-full group relative"
                                             aria-label="GitHub Repository"
                                         >
                                             <SiGithub size={24} className="text-white"/>
                                             <span
                                                 className="absolute left-full ml-2 px-2 py-1 bg-hot-pink text-white text-xs font-mono rounded opacity-0 group-hover:opacity-100 whitespace-nowrap transition-opacity">
-                                                {language === 'en' ? 'GitHub' : 'GitHub'}
+                                                GitHub
                                             </span>
                                         </a>
                                     )}
@@ -165,7 +176,7 @@ export const ProjectDetailModal = ({
                                             href={project.links.find(link => link.type === 'live')!.url!}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center justify-center w-12 h-12 bg-electric-blue hover:bg-electric-blue/80 rounded-full mb-4 group relative"
+                                            className="flex items-center justify-center w-12 h-12 bg-electric-blue hover:bg-electric-blue/80 rounded-full group relative"
                                             aria-label="Live Demo"
                                         >
                                             <ExternalLinkIcon size={24} className="text-white"/>
@@ -210,22 +221,19 @@ export const ProjectDetailModal = ({
                                     <div className="container mx-auto px-4 py-4 md:py-6">
                                         <div className="flex flex-col gap-3 md:gap-4">
                                             <div>
-                                                <h1
-                                                    className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold"
-                                                >
+                                                <span
+                                                    className="inline-block px-1.5 py-0.5 md:px-2 md:py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-[10px] md:text-xs font-mono rounded mb-2">
+                                                    {project?.category?.[language]}
+                                                </span>
+                                                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
                                                     {project?.title?.[language]}
                                                 </h1>
                                                 <div className="flex flex-wrap items-center gap-2 mt-2">
-                                                    <span
-                                                        className="inline-block px-1.5 py-0.5 md:px-2 md:py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-[10px] md:text-xs font-mono rounded">
-                                                        {project?.category?.[language]}
-                                                    </span>
                                                     <span className="text-gray-400 font-mono text-xs md:text-sm">
                                                         {project?.subtitle?.[language]}
                                                     </span>
                                                 </div>
                                             </div>
-                                            {/* Additional tags/chips */}
                                             <div className="flex flex-wrap gap-1.5 md:gap-2">
                                                 {project?.tag?.[language] &&
                                                     project?.tag[language].map((tag, index) => (
@@ -238,7 +246,7 @@ export const ProjectDetailModal = ({
                                                     ))}
                                                 <span
                                                     className="px-1.5 py-0.5 md:px-2 md:py-1 bg-hot-pink/20 border border-hot-pink/40 text-hot-pink text-[10px] md:text-xs font-mono rounded-full">
-                                                    {project?.start_date && project?.end_date ? `${project.start_date} ~ ${project.end_date}` : ''}
+                                                    {project?.start_date && project?.end_date ? `${formatYearMonth(project.start_date)} ~ ${formatYearMonth(project.end_date)}` : ''}
                                                 </span>
                                                 <span
                                                     className="px-1.5 py-0.5 md:px-2 md:py-1 bg-electric-blue/20 border border-electric-blue/40 text-electric-blue text-[10px] md:text-xs font-mono rounded-full flex items-center">
@@ -304,193 +312,160 @@ export const ProjectDetailModal = ({
                                                     >
                                                         <InfoIcon size={16} className="md:w-[18px] md:h-[18px]"/>
                                                         <span className="font-mono whitespace-nowrap">
-                                                            {language === 'en'
-                                                                ? 'OVERVIEW'
-                                                                : '개요'}
+                                                            {t('projectDetail.tab.overview')}
                                                         </span>
                                                     </button>
                                                     <button
-                                                        onClick={() => setActiveTab('contribution')}
-                                                        className={`flex-shrink-0 lg:w-full text-left px-3 md:px-4 py-2 md:py-3 rounded-md flex items-center space-x-2 md:space-x-3 transition-colors text-xs md:text-sm ${activeTab === 'contribution' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400 border border-gray-700 lg:border-0'}`}
+                                                        onClick={() => setActiveTab('tasks')}
+                                                        className={`flex-shrink-0 lg:w-full text-left px-3 md:px-4 py-2 md:py-3 rounded-md flex items-center space-x-2 md:space-x-3 transition-colors text-xs md:text-sm ${activeTab === 'tasks' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400 border border-gray-700 lg:border-0'}`}
                                                     >
-                                                        <CodeIcon size={16} className="md:w-[18px] md:h-[18px]"/>
+                                                        <UserIcon size={16} className="md:w-[18px] md:h-[18px]"/>
                                                         <span className="font-mono whitespace-nowrap">
-                                                            {language === 'en' ? 'CONTRIBUTION' : '기여도'}
+                                                            {t('projectDetail.tab.tasks')}
                                                         </span>
                                                     </button>
+                                                    {project?.project_type !== 'frontend' && (
                                                     <button
                                                         onClick={() => setActiveTab('troubleshooting')}
                                                         className={`flex-shrink-0 lg:w-full text-left px-3 md:px-4 py-2 md:py-3 rounded-md flex items-center space-x-2 md:space-x-3 transition-colors text-xs md:text-sm ${activeTab === 'troubleshooting' ? 'bg-gray-800 text-hot-pink border-l-2 border-hot-pink' : 'hover:bg-gray-900 text-gray-400 border border-gray-700 lg:border-0'}`}
                                                     >
-                                                        <ChevronRightIcon size={16} className="md:w-[18px] md:h-[18px]"/>
+                                                        <WrenchIcon size={16} className="md:w-[18px] md:h-[18px]"/>
                                                         <span className="font-mono whitespace-nowrap">
-                                                            {language === 'en' ? 'CHALLENGES' : '문제 해결'}
+                                                            {t('projectDetail.tab.troubleshooting')}
                                                         </span>
                                                     </button>
+                                                    )}
                                                 </nav>
                                             </div>
                                         </div>
                                         {/* Main Content Area */}
                                         <div className="lg:col-span-9">
-                                            {/* Overview Tab */}
+                                            {/* ========== TAB 1: Overview ========== */}
                                             {activeTab === 'overview' && (
                                                 <div>
-                                                    {/* Project Overview */}
-                                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-8">
-                                                        {project?.client && (
-                                                            <div
-                                                                className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                    {/* Project Info Cards - 4 per row on PC, 2 per row on mobile/tablet */}
+                                                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
+                                                        {project?.client ? (
+                                                            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
                                                                 <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
                                                                     {t('projectDetail.client')}
                                                                 </h3>
-                                                                <p className="text-sm md:text-lg">{project?.client?.[language]}</p>
+                                                                <p className="text-sm md:text-lg">{project.client[language]}</p>
                                                             </div>
-                                                        )}
-                                                        {!project?.client && (
-                                                            <div
-                                                                className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                        ) : (
+                                                            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
                                                                 <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
-                                                                    {language === 'en'
-                                                                        ? 'PROJECT TYPE'
-                                                                        : '프로젝트 유형'}
+                                                                    {t('projectDetail.projectType')}
                                                                 </h3>
                                                                 <p className="text-sm md:text-lg">
-                                                                    {language === 'en'
-                                                                        ? 'Open Source'
-                                                                        : '오픈 소스'}
+                                                                    {language === 'en' ? 'Open Source' : '오픈 소스'}
                                                                 </p>
                                                             </div>
                                                         )}
-                                                        <div
-                                                            className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                            <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
+                                                                {t('projectDetail.timeline')}
+                                                            </h3>
+                                                            <p className="text-sm md:text-lg">
+                                                                {project?.start_date && project?.end_date ? `${formatYearMonth(project.start_date)} ~ ${formatYearMonth(project.end_date)}` : ''}
+                                                            </p>
+                                                        </div>
+                                                        <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
                                                             <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
                                                                 {t('projectDetail.role')}
                                                             </h3>
                                                             <p className="text-sm md:text-lg">{project?.role?.[language]}</p>
                                                         </div>
-                                                        <div
-                                                            className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5 col-span-2 md:col-span-1">
-                                                            <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
-                                                                {t('projectDetail.timeline')}
-                                                            </h3>
-                                                            <p className="text-sm md:text-lg">{project?.start_date && project?.end_date ? `${project.start_date} ~ ${project.end_date}` : ''}</p>
-                                                        </div>
+                                                        {project?.team_size && (
+                                                            <div className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-5">
+                                                                <h3 className="text-xs md:text-sm text-gray-400 font-mono uppercase mb-1 md:mb-2">
+                                                                    {t('projectDetail.teamSize')}
+                                                                </h3>
+                                                                <p className="text-sm md:text-lg">{project.team_size[language]}</p>
+                                                            </div>
+                                                        )}
                                                     </div>
-                                                    {/* Project Description */}
-                                                    <div className="mb-6 md:mb-8">
-                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
-                                                            {language === 'en'
-                                                                ? 'Project Description'
-                                                                : '프로젝트 설명'}
-                                                        </h2>
-                                                        <p className="text-gray-300 text-sm md:text-base mb-4 md:mb-6">
-                                                            {project?.description?.[language]}
-                                                        </p>
-                                                    </div>
-                                                    {/* Key Features */}
-                                                    <div className="mb-6 md:mb-8">
-                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
-                                                            {language === 'en' ? 'Key Features' : '주요 기능'}
-                                                        </h2>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                                                            {project?.result?.[language]?.map((feature, index) => (
-                                                                <div key={index} className="flex items-start">
+
+                                                    {/* Highlight Cards (핵심 성과) - frontend 제외 */}
+                                                    {project?.project_type !== 'frontend' && sortedHighlights.length > 0 && (
+                                                        <div className="mb-6 md:mb-8">
+                                                            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
+                                                                {t('projectDetail.highlights')}
+                                                            </h2>
+                                                            <div className="flex flex-wrap gap-3 md:gap-4">
+                                                                {sortedHighlights.map((highlight, index) => (
                                                                     <div
-                                                                        className="flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full border border-hot-pink flex items-center justify-center mr-2 md:mr-3 mt-0.5">
-                                                                        <span className="text-hot-pink text-[10px] md:text-xs">
-                                                                            {index + 1}
+                                                                        key={index}
+                                                                        className="flex-1 min-w-0 basis-[calc(33.333%-0.667rem)] bg-gradient-to-br from-gray-900/80 to-gray-800/50 border border-hot-pink/30 rounded-lg p-4 md:p-6 text-center"
+                                                                    >
+                                                                        <p className="text-lg sm:text-xl md:text-xl lg:text-2xl font-bold text-electric-blue mb-1 md:mb-2">
+                                                                            {highlight.value?.[language]}
+                                                                        </p>
+                                                                        <p className="text-xs md:text-sm text-gray-300">
+                                                                            {highlight.label?.[language]}
+                                                                        </p>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Background & Problem */}
+                                                    {project?.background && (
+                                                        <div className="mb-6 md:mb-8">
+                                                            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
+                                                                {t('projectDetail.background')}
+                                                            </h2>
+                                                            <p className="text-gray-300 text-sm md:text-base" style={{lineHeight: '2.25'}}>
+                                                                {project.background[language]}
+                                                            </p>
+                                                        </div>
+                                                    )}
+
+                                                    {/* Tech Stack */}
+                                                    {project?.technologies && project.technologies.length > 0 && (
+                                                        <div className="mb-6 md:mb-8">
+                                                            <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
+                                                                {t('projectDetail.techStack')}
+                                                            </h2>
+                                                            <div className="flex flex-wrap gap-2 md:gap-3">
+                                                                {project.technologies.map((tech, index) => (
+                                                                    <div
+                                                                        key={index}
+                                                                        className="flex items-center gap-2 bg-gray-900/50 border border-gray-800 rounded-full px-3 py-1.5 md:px-4 md:py-2"
+                                                                    >
+                                                                        {tech.icon && (
+                                                                            <img
+                                                                                src={tech.icon}
+                                                                                alt={tech.name || ""}
+                                                                                className="w-4 h-4 md:w-5 md:h-5 object-contain"
+                                                                            />
+                                                                        )}
+                                                                        <span className="text-xs md:text-sm font-mono text-gray-300">
+                                                                            {tech.name}
                                                                         </span>
                                                                     </div>
-                                                                    <span className="text-gray-300 text-sm md:text-base">
-                                                                        {feature}
-                                                                    </span>
-                                                                </div>
-                                                            ))}
+                                                                ))}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    {/* Tech Stack - Redesigned to be more compact */}
-                                                    <div className="mb-6 md:mb-8">
-                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
-                                                            {t('projectDetail.techStack')}
-                                                        </h2>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                                                            {project?.technologies?.map((tech, index) => (
-                                                                <div
-                                                                    key={index}
-                                                                    className="bg-gray-900/30 border border-gray-800 rounded-lg p-3 md:p-4 flex items-start"
-                                                                >
-                                                                    <div
-                                                                        className="w-8 h-8 md:w-10 md:h-10 bg-gray-900/70 border border-gray-800 rounded-lg flex items-center justify-center p-1 md:p-1.5 mr-3 md:mr-4 flex-shrink-0">
-                                                                        <img
-                                                                            src={tech.icon || ""}
-                                                                            alt={tech.name || ""}
-                                                                            className="w-full h-full object-contain"
-                                                                        />
-                                                                    </div>
-                                                                    <div>
-                                                                        <h3 className="text-sm font-bold text-electric-blue mb-1">
-                                                                            {tech.name}
-                                                                        </h3>
-                                                                        <p className="text-xs text-gray-400">
-                                                                            {tech.description?.[language]}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                    {/* Results Section */}
-                                                    <div className="mb-6 md:mb-8">
-                                                        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
-                                                            {language === 'en'
-                                                                ? 'Results & Impact'
-                                                                : '결과 및 영향'}
-                                                        </h2>
-                                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                                                            {project?.result?.[language]?.map((result, index) => (
-                                                                <div
-                                                                    key={index}
-                                                                    className="bg-gray-900/50 border border-gray-800 rounded-lg p-3 md:p-4"
-                                                                >
-                                                                    <div className="flex items-center">
-                                                                        <div
-                                                                            className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-hot-pink/20 flex items-center justify-center mr-2 md:mr-3">
-                                                                            <span
-                                                                                className="text-hot-pink text-xs md:text-sm font-bold">
-                                                                                {index + 1}
-                                                                            </span>
-                                                                        </div>
-                                                                        <p className="text-gray-300 text-xs md:text-sm">
-                                                                            {result}
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
-                                                    {/* Gallery - Moved thumbnails back to bottom */}
+                                                    )}
+
+                                                    {/* Gallery */}
                                                     {project?.gallery_url && project.gallery_url.length > 0 && (
                                                         <div>
                                                             <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">
-                                                                {language === 'en'
-                                                                    ? 'Project Gallery'
-                                                                    : '프로젝트 갤러리'}
+                                                                {t('projectDetail.gallery')}
                                                             </h2>
                                                             <div className="space-y-3 md:space-y-4">
-                                                                {/* Main image */}
                                                                 <div className="relative">
-                                                                    <div
-                                                                        className="aspect-[16/9] overflow-hidden border border-gray-800 rounded-lg"
-                                                                    >
+                                                                    <div className="aspect-[16/9] overflow-hidden border border-gray-800 rounded-lg">
                                                                         <img
-                                                                            src={project?.gallery_url?.[activeImage]}
-                                                                            alt={`${project?.title?.[language]} gallery image ${activeImage + 1}`}
+                                                                            src={project.gallery_url[activeImage]}
+                                                                            alt={`${project.title?.[language]} gallery image ${activeImage + 1}`}
                                                                             className="w-full h-full object-cover"
                                                                         />
-                                                                        <div
-                                                                            className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-60"></div>
+                                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-60"></div>
                                                                     </div>
-                                                                    {/* Navigation arrows */}
                                                                     <button
                                                                         onClick={handlePrevImage}
                                                                         className="absolute top-1/2 left-2 md:left-4 transform -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full bg-black/50 flex items-center justify-center hover:bg-hot-pink/80 transition-colors"
@@ -503,15 +478,12 @@ export const ProjectDetailModal = ({
                                                                     >
                                                                         <ChevronRightIcon size={20} className="md:w-6 md:h-6"/>
                                                                     </button>
-                                                                    {/* Image counter */}
-                                                                    <div
-                                                                        className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 px-2 py-0.5 md:px-3 md:py-1 rounded-full font-mono text-xs md:text-sm">
-                                                                        {activeImage + 1} / {project?.gallery_url?.length || 0}
+                                                                    <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-black/70 px-2 py-0.5 md:px-3 md:py-1 rounded-full font-mono text-xs md:text-sm">
+                                                                        {activeImage + 1} / {project.gallery_url.length}
                                                                     </div>
                                                                 </div>
-                                                                {/* Thumbnails at bottom */}
                                                                 <div className="flex flex-wrap gap-1.5 md:gap-2">
-                                                                    {project?.gallery_url?.map((image, index) => (
+                                                                    {project.gallery_url.map((image, index) => (
                                                                         <button
                                                                             key={index}
                                                                             onClick={() => setActiveImage(index)}
@@ -530,16 +502,15 @@ export const ProjectDetailModal = ({
                                                     )}
                                                 </div>
                                             )}
-                                            {/* Contribution Tab */}
-                                            {activeTab === 'contribution' && (
+
+                                            {/* ========== TAB 2: Tasks (담당 업무) ========== */}
+                                            {activeTab === 'tasks' && (
                                                 <div>
                                                     <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center">
                                                         <span className="w-1.5 md:w-2 h-6 md:h-8 bg-hot-pink mr-2 md:mr-3"></span>
-                                                        {language === 'en'
-                                                            ? 'CONTRIBUTION BREAKDOWN'
-                                                            : '기여도 분석'}
+                                                        {t('projectDetail.tasksTitle')}
                                                     </h2>
-                                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                                                    <div className="space-y-6 md:space-y-8">
                                                         {project?.contributions
                                                             ?.slice()
                                                             .sort((a, b) => Number(b.percentage || 0) - Number(a.percentage || 0))
@@ -548,77 +519,107 @@ export const ProjectDetailModal = ({
                                                                 key={index}
                                                                 className="bg-gray-900/30 border border-gray-800 rounded-lg p-4 md:p-6"
                                                             >
-                                                                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-electric-blue">
-                                                                    {item.area?.[language]}
-                                                                </h3>
-                                                                <div className="mb-3 md:mb-4">
-                                                                    <div
-                                                                        className="flex justify-between items-center mb-1.5 md:mb-2">
-                                                                        <span className="font-mono text-xs md:text-sm">
-                                                                            {language === 'en'
-                                                                                ? 'Contribution Level'
-                                                                                : '기여도'}
-                                                                        </span>
-                                                                        <span
-                                                                            className="font-mono text-[10px] md:text-xs text-hot-pink">
-                                                                            {item.percentage}%
-                                                                        </span>
-                                                                    </div>
-                                                                    <div
-                                                                        className="h-2 md:h-3 bg-gray-800 rounded-full overflow-hidden">
-                                                                        <div
-                                                                            className="h-full bg-gradient-to-r from-electric-blue to-hot-pink rounded-full"
-                                                                            style={{
-                                                                                width: `${item.percentage}%`,
-                                                                            }}
-                                                                        ></div>
-                                                                    </div>
+                                                                {/* Area & Percentage */}
+                                                                <div className="flex items-center justify-between mb-3 md:mb-4">
+                                                                    <h3 className="text-lg md:text-xl font-bold text-electric-blue">
+                                                                        {item.area?.[language]}
+                                                                    </h3>
+                                                                    <span className="font-mono text-sm md:text-base text-hot-pink">
+                                                                        {item.percentage}%
+                                                                    </span>
                                                                 </div>
-                                                                <p className="text-gray-300 text-xs md:text-base">
-                                                                    {item.description?.[language]}
-                                                                </p>
+                                                                {/* Progress bar */}
+                                                                <div className="h-2 bg-gray-800 rounded-full overflow-hidden mb-3 md:mb-4">
+                                                                    <div
+                                                                        className="h-full bg-gradient-to-r from-electric-blue to-hot-pink rounded-full"
+                                                                        style={{ width: `${item.percentage}%` }}
+                                                                    ></div>
+                                                                </div>
+                                                                {/* Description */}
+                                                                {item.description && (
+                                                                    <p className="text-gray-300 text-sm md:text-base mb-3 md:mb-4">
+                                                                        {item.description[language]}
+                                                                    </p>
+                                                                )}
+                                                                {/* Tasks checklist */}
+                                                                {item.tasks?.[language] && item.tasks[language].length > 0 && (
+                                                                    <div className="border-t border-gray-800 pt-3 md:pt-4">
+                                                                        <h4 className="text-sm md:text-base font-bold text-gray-200 mb-2 md:mb-3">
+                                                                            {t('projectDetail.tasksList')}
+                                                                        </h4>
+                                                                        <ul className="space-y-1.5 md:space-y-2">
+                                                                            {item.tasks[language].map((task, taskIndex) => (
+                                                                                <li key={taskIndex} className="flex items-start gap-2">
+                                                                                    <CheckCircleIcon size={16} className="text-hot-pink mt-0.5 flex-shrink-0 md:w-[18px] md:h-[18px]"/>
+                                                                                    <span className="text-gray-300 text-xs md:text-sm">
+                                                                                        {task}
+                                                                                    </span>
+                                                                                </li>
+                                                                            ))}
+                                                                        </ul>
+                                                                    </div>
+                                                                )}
                                                             </div>
                                                         ))}
                                                     </div>
                                                 </div>
                                             )}
-                                            {/* Troubleshooting Tab */}
-                                            {activeTab === 'troubleshooting' && (
+
+                                            {/* ========== TAB 3: Troubleshooting (문제해결) - frontend 제외 ========== */}
+                                            {project?.project_type !== 'frontend' && activeTab === 'troubleshooting' && (
                                                 <div>
                                                     <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center">
                                                         <span className="w-1.5 md:w-2 h-6 md:h-8 bg-electric-blue mr-2 md:mr-3"></span>
-                                                        {language === 'en'
-                                                            ? 'TECHNICAL CHALLENGES & SOLUTIONS'
-                                                            : '기술적 과제 및 해결책'}
+                                                        {t('projectDetail.troubleshootingTitle')}
                                                     </h2>
                                                     <div className="space-y-4 md:space-y-6">
                                                         {project?.troubles?.map((trouble, index) => (
                                                             <div
                                                                 key={index}
-                                                                className="bg-gray-900/30 border border-gray-800 rounded-lg p-4 md:p-6">
-                                                                <div className="mb-4 md:mb-6">
-                                                                    <h4 className="text-base md:text-lg font-bold mb-2 md:mb-3 text-hot-pink">
-                                                                        {language === 'en' ? 'The Challenge' : '문제'}
+                                                                className="bg-gray-900/30 border border-gray-800 rounded-lg p-4 md:p-6"
+                                                            >
+                                                                {/* Title */}
+                                                                {trouble.title && (
+                                                                    <h3 className="text-base md:text-lg font-bold text-white mb-4 md:mb-5 pb-2 border-b border-gray-700">
+                                                                        {trouble.title[language]}
+                                                                    </h3>
+                                                                )}
+                                                                {/* Situation */}
+                                                                <div className="mb-4 md:mb-5">
+                                                                    <h4 className="text-sm md:text-base font-bold mb-1.5 md:mb-2 text-hot-pink">
+                                                                        {t('projectDetail.situation')}
                                                                     </h4>
                                                                     <p className="text-gray-300 text-sm md:text-base">
-                                                                        {trouble.trouble_cont?.[language]}
+                                                                        {trouble.situation?.[language]}
                                                                     </p>
                                                                 </div>
-                                                                <div className="mb-4 md:mb-6">
-                                                                    <h4 className="text-base md:text-lg font-bold mb-2 md:mb-3 text-electric-blue">
-                                                                        {language === 'en' ? 'The Solution' : '해결책'}
+                                                                {/* Cause Analysis */}
+                                                                {trouble.cause && (
+                                                                    <div className="mb-4 md:mb-5">
+                                                                        <h4 className="text-sm md:text-base font-bold mb-1.5 md:mb-2 text-yellow-400">
+                                                                            {t('projectDetail.causeAnalysis')}
+                                                                        </h4>
+                                                                        <p className="text-gray-300 text-sm md:text-base">
+                                                                            {trouble.cause[language]}
+                                                                        </p>
+                                                                    </div>
+                                                                )}
+                                                                {/* Approach & Reason */}
+                                                                <div className="mb-4 md:mb-5">
+                                                                    <h4 className="text-sm md:text-base font-bold mb-1.5 md:mb-2 text-electric-blue">
+                                                                        {t('projectDetail.approach')}
                                                                     </h4>
                                                                     <p className="text-gray-300 text-sm md:text-base">
-                                                                        {trouble.solution_cont?.[language]}
+                                                                        {trouble.approach?.[language]}
                                                                     </p>
                                                                 </div>
-                                                                <div
-                                                                    className="p-3 md:p-5 bg-electric-blue/10 border border-electric-blue/30 rounded-lg">
-                                                                    <h4 className="text-base md:text-lg font-bold mb-1.5 md:mb-2 text-electric-blue">
-                                                                        {language === 'en' ? 'Impact' : '영향'}
+                                                                {/* Result */}
+                                                                <div className="p-3 md:p-4 bg-electric-blue/10 border border-electric-blue/30 rounded-lg">
+                                                                    <h4 className="text-sm md:text-base font-bold mb-1 md:mb-1.5 text-white">
+                                                                        {t('projectDetail.result')}
                                                                     </h4>
                                                                     <p className="text-gray-300 text-sm md:text-base">
-                                                                        {trouble.impact?.[language]}
+                                                                        {trouble.result?.[language]}
                                                                     </p>
                                                                 </div>
                                                             </div>

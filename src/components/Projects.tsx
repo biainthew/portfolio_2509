@@ -88,42 +88,71 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
                     </div>
                 )}
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                     {filteredProjects.map((project, index) => (
                         <div
                             key={project.project_id}
-                            className="group relative overflow-hidden border border-gray-800 rounded-md flex flex-col cursor-pointer"
+                            className="group relative overflow-hidden border border-gray-800 rounded-md cursor-pointer bg-gray-900 transition-all duration-300 hover:border-electric-blue/50"
                             onMouseEnter={() => handleMouseEnter(project.project_id)}
                             onMouseLeave={handleMouseLeave}
                             onClick={() => onOpenModal(project.project_id)}
                         >
-                            <div
-                                className={`relative h-32 md:h-64 overflow-hidden ${activeProject === project.project_id && isGlitching ? 'animate-glitch' : ''}`}
-                            >
-                                <img
-                                    src={project.image || ""}
-                                    alt={project.title?.[language]}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                <div
-                                    className={`absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70 ${activeProject === project.project_id ? 'chromatic-aberration' : ''}`}
-                                ></div>
-                            </div>
-                            <div className="p-4 md:p-6 bg-gray-900 relative flex-1">
-                                <div className="text-[10px] md:text-xs text-electric-blue mb-2">
-                                    {project.category?.[language]}
+                            {/* Top accent line */}
+                            <div className="h-[2px] w-full bg-gradient-to-r from-hot-pink via-electric-blue to-hot-pink opacity-60 group-hover:opacity-100 transition-opacity"></div>
+
+                            <div className="p-4 md:p-6 relative">
+                                {/* Category & Index */}
+                                <div className="flex items-center justify-between mb-3">
+                                    <span className="text-[10px] md:text-xs text-electric-blue font-mono px-1.5 py-0.5 bg-electric-blue/10 border border-electric-blue/30 rounded">
+                                        {project.category?.[language]}
+                                    </span>
+                                    <span className="text-[10px] md:text-xs text-hot-pink font-mono">
+                                        {t('projects.project')}.{String(index + 1).padStart(2, '0')}
+                                    </span>
                                 </div>
-                                <h3 className="text-lg md:text-xl font-bold mb-2">{project.title?.[language]}</h3>
-                                <p className="text-gray-400 text-xs md:text-sm flex-1 line-clamp-2 md:line-clamp-none">{project.description?.[language]}</p>
-                                <div className="mt-3 md:mt-4 flex justify-between items-center">
-                                    <span className="text-[10px] md:text-xs text-hot-pink">{t('projects.project')}.{index + 1}</span>
-                                    <span
-                                        className="text-[10px] md:text-xs text-white font-mono">{t('projects.viewDetails')} &gt;</span>
+
+                                {/* Title */}
+                                <h3 className="text-lg md:text-xl font-bold mb-2 group-hover:text-electric-blue transition-colors">
+                                    {project.title?.[language]}
+                                </h3>
+
+                                {/* Summary */}
+                                <p className="text-gray-400 text-xs md:text-sm line-clamp-2 mb-4">
+                                    {project.summary?.[language] || project.background?.[language]}
+                                </p>
+
+                                {/* Tech tags */}
+                                {project.technologies && project.technologies.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5 mb-4">
+                                        {project.technologies.slice(0, 5).map((tech, techIndex) => (
+                                            <span
+                                                key={techIndex}
+                                                className="text-[10px] md:text-xs text-gray-400 font-mono px-1.5 py-0.5 bg-gray-800/80 border border-gray-700 rounded-full"
+                                            >
+                                                {tech.name}
+                                            </span>
+                                        ))}
+                                        {project.technologies.length > 5 && (
+                                            <span className="text-[10px] md:text-xs text-gray-500 font-mono px-1.5 py-0.5">
+                                                +{project.technologies.length - 5}
+                                            </span>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* Footer */}
+                                <div className="flex justify-between items-center pt-3 border-t border-gray-800">
+                                    <span className="text-[10px] md:text-xs text-gray-500 font-mono">
+                                        {project.status?.[language]}
+                                    </span>
+                                    <span className="text-[10px] md:text-xs text-white font-mono group-hover:text-electric-blue transition-colors">
+                                        {t('projects.viewDetails')} &gt;
+                                    </span>
                                 </div>
                             </div>
+
                             {activeProject === project.project_id && (
-                                <div
-                                    className="absolute inset-0 border-2 border-electric-blue pointer-events-none"></div>
+                                <div className="absolute inset-0 border-2 border-electric-blue pointer-events-none rounded-md"></div>
                             )}
                         </div>
                     ))}

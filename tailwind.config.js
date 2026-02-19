@@ -16,6 +16,13 @@ export default {
             animation: {
                 glitch: "glitch 500ms infinite",
                 flicker: "flicker 2s infinite",
+                "terminal-cursor": "blink 1s step-end infinite",
+            },
+            keyframes: {
+                blink: {
+                    "0%, 100%": { opacity: "1" },
+                    "50%": { opacity: "0" },
+                },
             },
         },
     },

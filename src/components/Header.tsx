@@ -41,15 +41,12 @@ export const Header = () => {
         >
             <div className="container mx-auto flex justify-between items-center">
                 <div className="flex items-center">
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-sm bg-hot-pink mr-2 md:mr-3 relative overflow-hidden">
-                        <div className="absolute inset-0 flex items-center justify-center text-black font-mono text-[10px] md:text-xs">
-                            &lt; / &gt;
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-br from-electric-blue to-hot-pink opacity-50"></div>
+                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-sm bg-gradient-to-br from-electric-blue to-hot-pink mr-2 md:mr-3 relative overflow-hidden flex items-center justify-center">
+                        <span className="text-white font-mono text-sm md:text-base font-bold animate-terminal-cursor">_</span>
                     </div>
                     <GlitchText
                         key={language}
-                        text="LEE.BIA"
+                        text="AibOS"
                         className="text-xl md:text-2xl font-bold tracking-wider"
                     />
                 </div>

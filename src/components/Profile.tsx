@@ -8,7 +8,7 @@ interface Skill {
 }
 export const Profile = () => {
     const { language, t } = useLanguage()
-    const [activeCategory, setActiveCategory] = useState<string>('frontend')
+    const [activeCategory, setActiveCategory] = useState<string>('backend')
     const [glitchSkill, setGlitchSkill] = useState<number | null>(null)
     const [isLoading, setIsLoading] = useState(true)
     useEffect(() => {
@@ -176,18 +176,6 @@ export const Profile = () => {
                                     <div>{`> ${t('profile.codeSnippet.line2')}`}</div>
                                     <div>{`> ${t('profile.codeSnippet.line3')}`}</div>
                                     <div className="text-hot-pink">{`> ${t('profile.codeSnippet.line4')}`}</div>
-                                </div>
-                                <div className="flex flex-wrap gap-2 mt-4">
-                                    {['HTML5', 'CSS3', 'JavaScript', 'React', 'Node.js'].map(
-                                        (tag, index) => (
-                                            <span
-                                                key={index}
-                                                className="px-2 py-1 bg-gray-800 border border-gray-700 text-xs font-mono text-gray-400 rounded"
-                                            >
-                        {tag}
-                      </span>
-                                        ),
-                                    )}
                                 </div>
                             </div>
                             {/* Right column - Skills */}

@@ -30,6 +30,7 @@ export interface Contribution {
     area: LocalizedText | null;
     percentage: string | null;
     description: LocalizedText | null;
+    tasks: LocalizedArray | null;
     project_id: string;
     created_at: string;
     edited_at: string | null;
@@ -38,9 +39,21 @@ export interface Contribution {
 export interface Trouble {
     trouble_id: string;
     project_id: string;
-    trouble_cont: LocalizedText | null;
-    solution_cont: LocalizedText | null;
-    impact: LocalizedText | null;
+    title: LocalizedText | null;
+    situation: LocalizedText | null;
+    cause: LocalizedText | null;
+    approach: LocalizedText | null;
+    result: LocalizedText | null;
+    created_at: string;
+    edited_at: string | null;
+}
+
+export interface Highlight {
+    highlight_id: string;
+    project_id: string;
+    value: LocalizedText | null;
+    label: LocalizedText | null;
+    sort_order: number | null;
     created_at: string;
     edited_at: string | null;
 }
@@ -65,13 +78,12 @@ export interface Project {
     start_date: string | null;
     end_date: string | null;
     status: LocalizedText | null;
-    description: LocalizedText | null;
-    challenge: LocalizedText | null;
-    solution: LocalizedText | null;
+    background: LocalizedText | null;
+    summary: LocalizedText | null;
     image: string | null;
     tag: LocalizedArray | null;
     gallery_url: string[] | null;
-    result: LocalizedArray | null;
+    team_size: LocalizedText | null;
     project_type: 'backend' | 'frontend' | 'personal';
     created_at: string;
     edited_at: string | null;
@@ -79,4 +91,5 @@ export interface Project {
     technologies?: Technology[];
     contributions?: Contribution[];
     troubles?: Trouble[];
+    highlights?: Highlight[];
 }
