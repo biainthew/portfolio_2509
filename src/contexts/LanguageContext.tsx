@@ -16,10 +16,10 @@ const translations = {
         'nav.projects': 'PROJECTS',
         'nav.contact': 'CONTACT',
         // Hero
-        'hero.title': 'HELLO',
-        'hero.subtitle1': 'CREATING HIGH QUALITY WEB SERVICES FROM DESIGN TO DEVELOPMENT',
-        'hero.subtitle2': 'ALWAYS FOCUSING ON USER EXPERIENCE',
-        'hero.subtitle3': 'DRAWING THE BIG PICTURE OF PROJECTS WITH FULL STACK CAPABILITIES',
+        'hero.title': 'LEBIA PORTFOLIO',
+        'hero.subtitle1': 'A DEVELOPER WHO BALANCES FEATURE IMPLEMENTATION WITH MAINTAINABILITY.',
+        'hero.subtitle2': 'COMMITTED TO UNDERSTANDING DEEPLY AND GROWING THROUGH CONTINUOUS LEARNING.',
+        'hero.subtitle3': 'DRAWING THE BIG PICTURE OF PROJECTS BASED ON DIVERSE EXPERIENCE.',
         'hero.button1': 'EXPLORE WORK',
         'hero.button2': 'CONTACT',
         // Terminal
@@ -93,9 +93,9 @@ const translations = {
         'nav.projects': '프로젝트',
         'nav.contact': '연락처',
         // Hero
-        'hero.title': '안녕하세요',
-        'hero.subtitle1': '디자인부터 개발까지 완성도 높은 웹 서비스를 만듭니다.',
-        'hero.subtitle2': '사용자 경험을 최우선으로 생각합니다.',
+        'hero.title': '이비아 포트폴리오',
+        'hero.subtitle1': '기능 구현과 유지보수 효율 사이의 균형을 고민하는 개발자입니다.',
+        'hero.subtitle2': '궁금한 것은 반드시 이해하고 넘어가며 지속적인 학습으로 매일 성장하고 있습니다.',
         'hero.subtitle3': '다양한 경험을 기반으로 프로젝트의 전체적인 그림을 그립니다.',
         'hero.button1': '작업 살펴보기',
         'hero.button2': '연락하기',
