@@ -10,7 +10,6 @@ interface ProjectsProps {
 
 export const Projects = ({ onOpenModal }: ProjectsProps) => {
     const [activeProject, setActiveProject] = useState<string | null>(null)
-    const [isGlitching, setIsGlitching] = useState(false)
     const [projects, setProjects] = useState<Project[]>([])
     const [loading, setLoading] = useState(false)
     const [activeTab, setActiveTab] = useState<string>('backend')
@@ -43,10 +42,6 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
     }, [language])
     const handleMouseEnter = (id: string) => {
         setActiveProject(id)
-        if (Math.random() > 0.7) {
-            setIsGlitching(true)
-            setTimeout(() => setIsGlitching(false), 300)
-        }
     }
     const handleMouseLeave = () => {
         setActiveProject(null)

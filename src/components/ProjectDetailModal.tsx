@@ -462,7 +462,7 @@ export const ProjectDetailModal = ({
                                                                         <img
                                                                             src={project.gallery_url[activeImage]}
                                                                             alt={`${project.title?.[language]} gallery image ${activeImage + 1}`}
-                                                                            className="w-full h-full object-cover"
+                                                                            className="w-full h-full"
                                                                         />
                                                                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-60"></div>
                                                                     </div>
