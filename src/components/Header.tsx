@@ -40,10 +40,7 @@ export const Header = () => {
             }}
         >
             <div className="container mx-auto flex justify-between items-center">
-                <div className="flex items-center">
-                    <div className="w-8 h-8 md:w-10 md:h-10 rounded-sm bg-gradient-to-br from-electric-blue to-hot-pink mr-2 md:mr-3 relative overflow-hidden flex items-center justify-center">
-                        <span className="text-white font-mono text-sm md:text-base font-bold animate-terminal-cursor">_</span>
-                    </div>
+                <div className="flex items-center logo-text">
                     <GlitchText
                         key={language}
                         text="AibOS"
@@ -108,6 +105,12 @@ export const Header = () => {
                     </nav>
                 </div>
             )}
+
+            <style jsx global>{`
+                .logo-text {
+                    font-family: 'Share Tech Mono', sans-serif;
+                }
+            `}</style>
         </header>
     )
 }

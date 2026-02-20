@@ -32,8 +32,6 @@ const translations = {
         'terminal.execute': '> EXECUTING PORTFOLIO.EXE...',
         // Profile
         'profile.title': 'SKILL MATRIX',
-        'profile.description':
-            'Creating engaging digital experiences through interactive design and intuitive user interfaces. Proficient in front-end development, creative design, and back-end development.',
         'profile.category.backend': 'BACKEND',
         'profile.category.frontend': 'FRONTEND',
         'profile.category.design': 'DESIGN',
@@ -108,8 +106,6 @@ const translations = {
         'terminal.execute': '> PORTFOLIO.EXE 실행 중...',
         // Profile
         'profile.title': '스킬',
-        'profile.description':
-            '사용자와 상호작용하는 인터페이스와 직관적인 디자인으로 긍정적인 사용자 경험을 만드는 것이 목표입니다. 백엔드 개발, 프론트엔드 개발 그리고 창의적 디자인에 모두 능숙합니다.',
         'profile.category.backend': '백엔드',
         'profile.category.frontend': '프론트엔드',
         'profile.category.design': '디자인',

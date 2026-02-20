@@ -7,20 +7,16 @@ export const Footer = () => {
     const socialLinks = [
         {
             label: 'GITHUB',
-            url: '#',
+            url: 'https://github.com/biainthew',
         },
         {
-            label: 'TWITTER',
-            url: '#',
-        },
-        {
+            label: 'BLOG',
+            url: 'https://biainthew.github.io/aibOS/',
+        }
+        /*{
             label: 'LINKEDIN',
             url: '#',
-        },
-        {
-            label: 'DRIBBBLE',
-            url: '#',
-        },
+        },*/
     ]
     return (
         <footer
@@ -49,6 +45,8 @@ export const Footer = () => {
                                     <a
                                         href={link.url}
                                         className={`inline-block px-3 py-1.5 md:px-4 md:py-2 border ${hoverIndex === index ? 'border-hot-pink text-hot-pink' : 'border-gray-700 text-gray-400'} text-xs md:text-sm transition-colors duration-300 relative`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         onMouseEnter={() => setHoverIndex(index)}
                                         onMouseLeave={() => setHoverIndex(null)}
                                     >
@@ -65,11 +63,15 @@ export const Footer = () => {
                         <div className="inline-block p-8 border border-gray-800 bg-gray-900/50 relative">
                             <div className="ascii-art font-mono text-xs leading-none text-electric-blue opacity-70">
                 <pre>{`
-     ______     __  __     ______     ______     ______
-    /\\  ___\\   /\\ \\_\\ \\   /\\  == \\   /\\  ___\\   /\\  == \\
-    \\ \\ \\____  \\ \\____ \\  \\ \\  __<   \\ \\  __\\   \\ \\  __<
-     \\ \\_____\\  \\/\\_____\\  \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\
-      \\/_____/   \\/_____/   \\/_/ /_/   \\/_____/   \\/_/ /_/
+   ('-.            .-. .-')                 .-')    
+  ( OO ).-.        \\  ( OO )               ( OO ).  
+  / . --. /  ,-.-') ;-----.\\  .-'),-----. (_)---\\_) 
+  | \\-.  \\   |  |OO)| .-.  | ( OO'  .-.  '/    _ |  
+.-'-'  |  |  |  |  \\| '-' /_)/   |  | |  |\\  :\` \`.  
+ \\| |_.'  |  |  |(_/| .-. \`. \\_) |  |\\|  | '..\`''.) 
+  |  .-.  | ,|  |_.'| |  \\  |  \\ |  | |  |.-._)   \\ 
+  |  | |  |(_|  |   | '--'  /   \`'  '-'  '\\       / 
+  \`--' \`--'  \`--'   \`------'      \`-----'  \`-----'  
                     `}</pre>
                             </div>
                         </div>

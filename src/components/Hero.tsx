@@ -44,12 +44,18 @@ export const Hero = () => {
                     />
                 </div>
                 <div className={`flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-6 md:mt-10 ${language === 'ko' ? 'font-point-ko' : 'font-point-en'}`}>
-                    <button className="cyber-button bg-transparent border-2 border-electric-blue text-electric-blue px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base relative overflow-hidden group w-full sm:w-48 md:w-56">
+                    <button
+                        className="cyber-button bg-transparent border-2 border-electric-blue text-electric-blue px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base relative overflow-hidden group w-full sm:w-48 md:w-56"
+                        onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
                         <span className="relative z-10">{t('hero.button1')}</span>
                         <span className="absolute inset-0 bg-electric-blue transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
                         <span className="absolute inset-0 bg-hot-pink opacity-0 group-hover:opacity-30 transition-opacity duration-300 delay-100"></span>
                     </button>
-                    <button className="cyber-button bg-transparent border-2 border-hot-pink text-hot-pink px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base relative overflow-hidden group w-full sm:w-48 md:w-56">
+                    <button
+                        className="cyber-button bg-transparent border-2 border-hot-pink text-hot-pink px-6 md:px-8 py-2.5 md:py-3 text-sm md:text-base relative overflow-hidden group w-full sm:w-48 md:w-56"
+                        onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                    >
                         <span className="relative z-10">{t('hero.button2')}</span>
                         <span className="absolute inset-0 bg-hot-pink transform scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"></span>
                         <span className="absolute inset-0 bg-electric-blue opacity-0 group-hover:opacity-30 transition-opacity duration-300 delay-100"></span>

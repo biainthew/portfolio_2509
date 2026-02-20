@@ -100,17 +100,17 @@ export const Profile = () => {
         },
         {
             name: 'JPA / TypeORM',
-            level: 80,
+            level: 30,
             category: 'backend',
         },
         {
             name: 'Node.js',
-            level: 70,
+            level: 60,
             category: 'backend',
         },
         {
             name: 'Docker / Jenkins',
-            level: 70,
+            level: 60,
             category: 'backend',
         },
     ]
@@ -149,9 +149,6 @@ export const Profile = () => {
                         intensity="medium"
                     />
                     <div className={`w-24 h-1 mx-auto bg-hot-pink ${language === 'ko' ? 'w-14' : 'w-64'}`}></div>
-                    <p className="mt-4 md:mt-6 max-w-2xl mx-auto text-gray-400 text-sm md:text-base px-2">
-                        {t('profile.description')}
-                    </p>
                 </div>
                 {/* Profile card */}
                 <div className="mx-auto bg-gray-900/70 border border-gray-800 backdrop-blur-sm rounded-lg overflow-hidden">
