@@ -18,7 +18,7 @@ export const Projects = ({ onOpenModal }: ProjectsProps) => {
     const projectTabs = [
         { id: 'backend', name: t('projects.tab.backend') },
         { id: 'frontend', name: t('projects.tab.frontend') },
-        { id: 'personal', name: t('projects.tab.personal') },
+        /*{ id: 'personal', name: t('projects.tab.personal') },*/
     ]
 
     const filteredProjects = projects.filter(
