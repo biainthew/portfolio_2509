@@ -6,7 +6,7 @@ import {StrictMode} from "react";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <BrowserRouter basename="/portfolio_2509">
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
             <App />
         </BrowserRouter>
     </StrictMode>,
